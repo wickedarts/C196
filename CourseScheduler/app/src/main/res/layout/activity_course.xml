@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UI.CourseActivity"
+    tools:visibility="visible">
+
+    <CalendarView
+        android:id="@+id/calendarViewTerm"
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/darker_gray"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startDateDynamicTerm"
+        tools:visibility="visible" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/term_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="addCoursePlusButton"
+        android:src="@drawable/ic_baseline_add_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listOfCourse"
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSaveTerm"
+        tools:listitem="@layout/course_list_item" />
+
+    <EditText
+        android:id="@+id/startDateDynamicTerm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="YEAR-MM-DD"
+        android:textSize="18sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.203"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startDateTermText" />
+
+    <TextView
+        android:id="@+id/startDateTermText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/start_date"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.225"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/termTitle" />
+
+    <EditText
+        android:id="@+id/endDateDynamicTerm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="YEAR-MM-DD"
+        android:textSize="18sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.537"
+        app:layout_constraintStart_toEndOf="@+id/startDateDynamicTerm"
+        app:layout_constraintTop_toBottomOf="@+id/endDateTermText" />
+
+    <TextView
+        android:id="@+id/endDateTermText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/end_date"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.568"
+        app:layout_constraintStart_toEndOf="@+id/startDateTermText"
+        app:layout_constraintTop_toBottomOf="@+id/termTitle" />
+
+    <EditText
+        android:id="@+id/termTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:text="Season - Year"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.44"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonDeleteTerm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="4dp"
+        android:text="Delete"
+        app:layout_constraintStart_toEndOf="@+id/buttonSaveTerm"
+        app:layout_constraintTop_toBottomOf="@+id/calendarViewTerm" />
+
+    <Button
+        android:id="@+id/buttonSaveTerm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="4dp"
+        android:onClick="addTermFromScreen"
+        android:text="Save"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendarViewTerm" />
+
+    <TextView
+        android:id="@+id/dateInMillsCourseHIDE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextViewHIDDEN"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/calendarViewTerm"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/currentTermText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Current Term"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@+id/termTitle"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

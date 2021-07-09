@@ -1,0 +1,202 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 3,
+    "identityHash": "e4b2981016ecdc62d0cf4343b2ef6f80",
+    "entities": [
+      {
+        "tableName": "term_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`termID` INTEGER NOT NULL, `termName` TEXT, `startDate` INTEGER, `endDate` INTEGER, `currentTerm` INTEGER NOT NULL, PRIMARY KEY(`termID`))",
+        "fields": [
+          {
+            "fieldPath": "termID",
+            "columnName": "termID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "termName",
+            "columnName": "termName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "startDate",
+            "columnName": "startDate",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "endDate",
+            "columnName": "endDate",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "currentTerm",
+            "columnName": "currentTerm",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "termID"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "course_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`courseID` INTEGER NOT NULL, `courseTermID` INTEGER NOT NULL, `courseName` TEXT, `startDate` INTEGER, `endDate` INTEGER, `courseMentor` TEXT, `courseMentorPhone` TEXT, `courseMentorEmail` TEXT, `courseStatus` TEXT, PRIMARY KEY(`courseID`))",
+        "fields": [
+          {
+            "fieldPath": "courseID",
+            "columnName": "courseID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "courseTermID",
+            "columnName": "courseTermID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "courseName",
+            "columnName": "courseName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "startDate",
+            "columnName": "startDate",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "endDate",
+            "columnName": "endDate",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "courseMentor",
+            "columnName": "courseMentor",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "courseMentorPhone",
+            "columnName": "courseMentorPhone",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "courseMentorEmail",
+            "columnName": "courseMentorEmail",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "courseStatus",
+            "columnName": "courseStatus",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "courseID"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "assessment_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`assessmentID` INTEGER NOT NULL, `assessmentCourseID` INTEGER NOT NULL, `assessmentName` TEXT, `startDate` INTEGER, `assessmentType` TEXT, PRIMARY KEY(`assessmentID`))",
+        "fields": [
+          {
+            "fieldPath": "assessmentID",
+            "columnName": "assessmentID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "assessmentCourseID",
+            "columnName": "assessmentCourseID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "assessmentName",
+            "columnName": "assessmentName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "startDate",
+            "columnName": "startDate",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "assessmentType",
+            "columnName": "assessmentType",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "assessmentID"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "note_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`noteID` INTEGER NOT NULL, `noteName` TEXT, `noteText` TEXT, PRIMARY KEY(`noteID`))",
+        "fields": [
+          {
+            "fieldPath": "noteID",
+            "columnName": "noteID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "noteName",
+            "columnName": "noteName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "noteText",
+            "columnName": "noteText",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "noteID"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e4b2981016ecdc62d0cf4343b2ef6f80')"
+    ]
+  }
+}

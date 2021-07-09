@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.coursescheduler">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.CourseScheduler">
+
+<!--        <receiver-->
+<!--            android:name=".MyReceiver"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="true"></receiver>-->
+
+        <activity
+            android:name=".UI.DetailedNoteViewActivity"
+            android:label="Assessment Details"
+            android:parentActivityName=".UI.DetailedCourseViewActivity" />
+
+        <activity
+            android:name=".UI.DetailedAssessmentViewActivity"
+            android:label="Assessment Details"
+            android:parentActivityName=".UI.DetailedCourseViewActivity"/>
+
+        <activity
+            android:name=".UI.DetailedCourseViewActivity"
+            android:label="Course Details"
+            android:parentActivityName=".UI.CourseActivity" />
+
+        <activity
+            android:name=".UI.CourseActivity"
+            android:label="Term Details and Course List"
+            android:parentActivityName=".UI.ListOfTermsActivity"/>
+
+        <activity
+            android:name=".UI.ListOfTermsActivity"
+            android:label="Terms All"
+            android:parentActivityName=".UI.MainActivity" />
+
+        <activity
+            android:name=".UI.MainActivity"
+            android:label="Course Scheduler">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest>
