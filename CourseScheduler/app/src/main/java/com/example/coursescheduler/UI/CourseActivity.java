@@ -32,7 +32,7 @@ public class CourseActivity extends AppCompatActivity {
     String termTitle;
     LocalDate startDate;
     LocalDate endDate;
-    boolean isCurrentTerm;
+    Integer isCurrentTerm = 0;
     CalendarView picker;
     TextView mills;
 
@@ -67,9 +67,11 @@ public class CourseActivity extends AppCompatActivity {
                 endDate = LocalDate.parse(mEditEndDateDynamic.getText());
                 if((startDate.isEqual(currentDate) || startDate.isBefore(currentDate)) && (endDate.isAfter(currentDate) || endDate.isEqual(currentDate))){
                     mIsCurrentTerm.setVisibility(View.VISIBLE);
+                    isCurrentTerm = 1;
                 }
                 else{
                     mIsCurrentTerm.setVisibility(View.INVISIBLE);
+                    isCurrentTerm = 0;
                 }
             }
         });
@@ -99,11 +101,11 @@ public class CourseActivity extends AppCompatActivity {
             mEditEndDateDynamic.setText(endDate.toString());
             if((startDate.isEqual(currentDate) || startDate.isBefore(currentDate)) && (endDate.isAfter(currentDate) || endDate.isEqual(currentDate))){
                 mIsCurrentTerm.setVisibility(View.VISIBLE);
-                isCurrentTerm = true;
+                isCurrentTerm = 1;
             }
             else{
                 mIsCurrentTerm.setVisibility(View.INVISIBLE);
-                isCurrentTerm = false;
+                isCurrentTerm = 0;
             }
         }
         courseScheduleRepository = new CouseScheduleRepository(getApplication());
@@ -130,13 +132,14 @@ public class CourseActivity extends AppCompatActivity {
     public void addTermFromScreen(View view) {
         TermEntity p;
 
+        if((startDate.isEqual(currentDate) || startDate.isBefore(currentDate)) && (endDate.isAfter(currentDate) || endDate.isEqual(currentDate))){
+            isCurrentTerm = 1;
+        }
+        else{
+            isCurrentTerm = 0;
+        }
+
         if(mTermId!=-1) {
-            if((startDate.isEqual(currentDate) || startDate.isBefore(currentDate)) && (endDate.isAfter(currentDate) || endDate.isEqual(currentDate))){
-                isCurrentTerm = true;
-            }
-            else{
-                isCurrentTerm = false;
-            }
             p = new TermEntity(mTermId, mEditTermTitle.getText().toString(), LocalDate.parse(mEditStartDateDynamic.getText()), LocalDate.parse(mEditEndDateDynamic.getText()), isCurrentTerm);
         }
         else {

@@ -3,8 +3,30 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="28d1c2c9-0f32-4034-983c-249ae99c3fe2" name="Default Changelist" comment="" />
+    <list default="true" id="28d1c2c9-0f32-4034-983c-249ae99c3fe2" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/coursescheduler/Entity/TermEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/coursescheduler/Entity/TermEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/coursescheduler/UI/CourseActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/coursescheduler/UI/CourseActivity.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,7 +66,11 @@
       </state>
     </system>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="1v3xTA3FByMoFdAjJYmm0OPec96" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -130,26 +156,37 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="WindowStateProjectService">
-    <state x="103" y="123" width="2223" height="1537" key="AVDManager" timestamp="1625808286249">
+    <state x="103" y="123" width="2223" height="1537" key="AVDManager" timestamp="1625810995346">
       <screen x="0" y="23" width="3200" height="1737" />
     </state>
-    <state x="103" y="123" width="2223" height="1537" key="AVDManager/3200.23.3200.1777/0.23.3200.1737@0.23.3200.1737" timestamp="1625808286249" />
-    <state width="2381" height="514" key="GridCell.Tab.0.bottom" timestamp="1625808944342">
+    <state x="103" y="123" width="2223" height="1537" key="AVDManager/3200.23.3200.1777/0.23.3200.1737@0.23.3200.1737" timestamp="1625810995346" />
+    <state width="2381" height="514" key="GridCell.Tab.0.bottom" timestamp="1625810993110">
       <screen x="0" y="23" width="3200" height="1737" />
     </state>
-    <state width="2381" height="514" key="GridCell.Tab.0.bottom/3200.23.3200.1777/0.23.3200.1737@0.23.3200.1737" timestamp="1625808944342" />
-    <state width="2381" height="514" key="GridCell.Tab.0.center" timestamp="1625808944341">
+    <state width="2381" height="514" key="GridCell.Tab.0.bottom/3200.23.3200.1777/0.23.3200.1737@0.23.3200.1737" timestamp="1625810993110" />
+    <state width="2381" height="514" key="GridCell.Tab.0.center" timestamp="1625810993109">
       <screen x="0" y="23" width="3200" height="1737" />
     </state>
-    <state width="2381" height="514" key="GridCell.Tab.0.center/3200.23.3200.1777/0.23.3200.1737@0.23.3200.1737" timestamp="1625808944341" />
-    <state width="2381" height="514" key="GridCell.Tab.0.left" timestamp="1625808944341">
+    <state width="2381" height="514" key="GridCell.Tab.0.center/3200.23.3200.1777/0.23.3200.1737@0.23.3200.1737" timestamp="1625810993109" />
+    <state width="2381" height="514" key="GridCell.Tab.0.left" timestamp="1625810993108">
       <screen x="0" y="23" width="3200" height="1737" />
     </state>
-    <state width="2381" height="514" key="GridCell.Tab.0.left/3200.23.3200.1777/0.23.3200.1737@0.23.3200.1737" timestamp="1625808944341" />
-    <state width="2381" height="514" key="GridCell.Tab.0.right" timestamp="1625808944342">
+    <state width="2381" height="514" key="GridCell.Tab.0.left/3200.23.3200.1777/0.23.3200.1737@0.23.3200.1737" timestamp="1625810993108" />
+    <state width="2381" height="514" key="GridCell.Tab.0.right" timestamp="1625810993109">
       <screen x="0" y="23" width="3200" height="1737" />
     </state>
-    <state width="2381" height="514" key="GridCell.Tab.0.right/3200.23.3200.1777/0.23.3200.1737@0.23.3200.1737" timestamp="1625808944342" />
+    <state width="2381" height="514" key="GridCell.Tab.0.right/3200.23.3200.1777/0.23.3200.1737@0.23.3200.1737" timestamp="1625810993109" />
   </component>
 </project>

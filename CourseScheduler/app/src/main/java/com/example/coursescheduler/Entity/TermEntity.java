@@ -25,9 +25,9 @@ public class TermEntity {
     private LocalDate endDate;
 
 //    @ColumnInfo(name = "currentTerm")
-    private boolean currentTerm;
+    private int currentTerm;
 
-    public TermEntity(int termID, String termName, LocalDate startDate, LocalDate endDate, boolean currentTerm) {
+    public TermEntity(int termID, String termName, LocalDate startDate, LocalDate endDate, int currentTerm) {
         this.termID = termID;
         this.termName = termName;
         this.startDate = startDate;
@@ -62,7 +62,7 @@ public class TermEntity {
 
     public void setEndDate(LocalDate endDate) { this.endDate = endDate; }
 
-    public boolean getCurrentTerm() { return currentTerm; }
+    public int getCurrentTerm() { return currentTerm; }
 
-    public void setCurrentTerm(boolean currentTerm) { this.currentTerm = currentTerm; }
+    public void setCurrentTerm(int currentTerm) { this.currentTerm = currentTerm; }
 }
