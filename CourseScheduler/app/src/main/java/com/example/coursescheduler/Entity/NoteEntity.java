@@ -7,21 +7,21 @@ import androidx.room.PrimaryKey;
 public class NoteEntity {
     @PrimaryKey
     private int noteID;
-    private String noteName;
+    private int noteCourseID;
     private String noteText;
 
     @Override
     public String toString() {
         return "NoteEntity{" +
-                "noteID" + noteID +
-                "noteName" + noteName +
-                "noteText" + noteText +
+                "noteID=" + noteID +
+                "courseID=" + noteCourseID +
+                "noteText=" + noteText +
                 '}';
     }
 
-    public NoteEntity(int noteID, String noteName, String noteText) {
+    public NoteEntity(int noteID, int noteCourseID, String noteText) {
         this.noteID = noteID;
-        this.noteName = noteName;
+        this.noteCourseID = noteCourseID;
         this.noteText = noteText;
     }
 
@@ -29,9 +29,9 @@ public class NoteEntity {
 
     public void setNoteID(int noteID) { this.noteID = noteID; }
 
-    public String getNoteName() { return noteName; }
+    public int getNoteCourseID() { return noteCourseID; }
 
-    public void setNoteName(String noteName) { this.noteName = noteName; }
+    public void setNoteCourseID(int noteCourseID) {this.noteCourseID = noteCourseID; }
 
     public String getNoteText() { return noteText; }
 

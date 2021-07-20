@@ -9,22 +9,11 @@ import java.time.LocalDate;
 @Entity(tableName = "term_table")
 public class TermEntity {
 
-    //Column (Fields)
     @PrimaryKey
-//    (autoGenerate = true)
-//    @ColumnInfo(name = "termID")
     private int termID;
-
-//    @ColumnInfo(name = "termName")
     private String termName;
-
-//    @ColumnInfo(name = "startDate")
     private LocalDate startDate;
-
-//    @ColumnInfo(name = "endDate")
     private LocalDate endDate;
-
-//    @ColumnInfo(name = "currentTerm")
     private int currentTerm;
 
     public TermEntity(int termID, String termName, LocalDate startDate, LocalDate endDate, int currentTerm) {
@@ -38,11 +27,11 @@ public class TermEntity {
     @Override
     public String toString() {
         return "TermEntity{" +
-                "termID'" + termID +
+                "termID=" + termID +
                 "termName='" + termName +
                 "startDate=" + startDate +
                 "endDate=" + endDate +
-                "currentTerm" + currentTerm +
+                "currentTerm=" + currentTerm +
                 '}';
     }
 

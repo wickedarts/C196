@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#0096D0"
     tools:context=".UI.DetailedAssessmentViewActivity"
     tools:visibility="visible">
 
@@ -29,11 +30,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/startDateAssessmentText" />
 
+    <EditText
+        android:id="@+id/endDateDynamicAssessment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="YEAR-MM-DD"
+        android:textSize="18sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.203"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startDateAssessmentText" />
+
     <TextView
         android:id="@+id/startDateAssessmentText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/start_due_date"
+        android:text="@string/start_end_date"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,22 +71,13 @@
         android:id="@+id/buttonSaveAssessment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
         android:layout_marginTop="4dp"
         android:onClick="addAssessmentFromScreen"
         android:text="Save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <Button
-        android:id="@+id/buttonDeleteAssessment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="4dp"
-        android:text="Delete"
-        app:layout_constraintStart_toEndOf="@+id/buttonSaveAssessment"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/assessmentDescription" />
 
     <TextView
         android:id="@+id/dateInMillsAssessmentHIDE"
@@ -97,11 +102,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView"
+    <EditText
+        android:id="@+id/assessmentDescription"
         android:layout_width="354dp"
         android:layout_height="225dp"
         android:layout_marginTop="36dp"
+        android:inputType="textMultiLine"
         android:text="This course introduces students to programming for mobile devices using a software development kit (SDK). Students with previous knowledge of programming will learn how to install and utilize a SDK, build a basic mobile application, build a mobile application using a graphical user interface (GUI), adapt applications to different mobile devices, save data, execute and debug mobile applications using emulators, and deploy a mobile application."
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -111,10 +117,10 @@
 
     <Spinner
         android:id="@+id/spinnerAssessment"
-        android:layout_width="117dp"
-        android:layout_height="45dp"
+        android:layout_width="168dp"
+        android:layout_height="36dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.789"
+        app:layout_constraintHorizontal_bias="0.843"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/startTimeAssessmentText" />
 

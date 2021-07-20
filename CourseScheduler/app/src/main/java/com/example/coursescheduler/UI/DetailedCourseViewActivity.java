@@ -2,10 +2,13 @@ package com.example.coursescheduler.UI;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,7 +33,8 @@ public class DetailedCourseViewActivity extends AppCompatActivity {
     static int id2;
 
     int mCourseId;
-    int mTermId;
+    int mCourseTermID;
+    int mNoteId;
 
     String courseName;
     String startDate;
@@ -41,6 +45,7 @@ public class DetailedCourseViewActivity extends AppCompatActivity {
     String mentorEmail;
     CalendarView picker;
     TextView mills;
+    TextView mCourseTermIDHidden;
 
     EditText mEditName;
     EditText mEditStartDate;
@@ -54,10 +59,17 @@ public class DetailedCourseViewActivity extends AppCompatActivity {
 
     CourseEntity currentCourse;
 
+    public static int numAssessments;
+
+    RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_course_view);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         mills=findViewById(R.id.dateInMillsCourseHIDE);//Hidden text view (Hide after testing)
         picker=(CalendarView)findViewById(R.id.calendarViewCourse);
@@ -75,18 +87,18 @@ public class DetailedCourseViewActivity extends AppCompatActivity {
         });
 
         mCourseId = getIntent().getIntExtra("courseID", -1);
+        mCourseTermID = getIntent().getIntExtra("termID", -1);
         courseName = getIntent().getStringExtra("courseName");
-        startDate = getIntent().getStringExtra("startDate");
-        endDate = getIntent().getStringExtra("endDate");
+        startDate = getIntent().getStringExtra("courseStartDate");
+        endDate = getIntent().getStringExtra("courseEndDate");
         courseStatus = getIntent().getStringExtra("courseStatus");
-        mentor = getIntent().getStringExtra("mentorName");
-        mentorPhone = getIntent().getStringExtra("mentorPhone");
-        mentorEmail = getIntent().getStringExtra("mentorEmail");
-        mTermId = getIntent().getIntExtra("termID", -1);
+        mentor = getIntent().getStringExtra("courseMentorName");
+        mentorPhone = getIntent().getStringExtra("courseMentorPhone");
+        mentorEmail = getIntent().getStringExtra("courseMentorEmail");
 
-        id2 = mTermId;
+        id2 = mCourseTermID;
 
-        if (mCourseId == -1) mCourseId = DetailedAssessmentViewActivity.id3;
+//        if (mCourseId == -1) mCourseId = DetailedAssessmentViewActivity.id3;
 
         courseScheduleRepository = new CouseScheduleRepository(getApplication());
         List<CourseEntity> allCourses = courseScheduleRepository.getAllCourses();
@@ -101,16 +113,18 @@ public class DetailedCourseViewActivity extends AppCompatActivity {
         mEditMentor = findViewById(R.id.mentorName);
         mEditMentorPhone = findViewById(R.id.mentorPhone);
         mEditMentorEmail = findViewById(R.id.mentorEmail);
+        mCourseTermIDHidden = findViewById(R.id.courseTermIDHidden);
 
-        if (currentCourse != null) {
-            courseName = currentCourse.getCourseName();
-            startDate = currentCourse.getStartDate().toString();
-            endDate = currentCourse.getEndDate().toString();
-            courseStatus = currentCourse.getCourseStatus();
-            mentor = currentCourse.getCourseMentor();
-            mentorPhone = currentCourse.getCourseMentorPhone();
-            mentorEmail = currentCourse.getCourseMentorEmail();
-        }
+//        if (currentCourse != null) {
+//            courseName = currentCourse.getCourseName();
+//            startDate = currentCourse.getStartDate().toString();
+//            endDate = currentCourse.getEndDate().toString();
+//            courseStatus = currentCourse.getCourseStatus();
+//            mentor = currentCourse.getCourseMentor();
+//            mentorPhone = currentCourse.getCourseMentorPhone();
+//            mentorEmail = currentCourse.getCourseMentorEmail();
+//            mCourseTermIDHidden.setText(Integer.toString(mCourseTermID));
+//        }
         if(mCourseId != -1) {
             mEditName.setText(courseName);
             mEditStartDate.setText(startDate);
@@ -119,7 +133,9 @@ public class DetailedCourseViewActivity extends AppCompatActivity {
             mEditMentor.setText(mentor);
             mEditMentorPhone.setText(mentorPhone);
             mEditMentorEmail.setText(mentorEmail);
+            mCourseTermIDHidden.setText(Integer.toString(mCourseTermID));
         }
+
 
         courseScheduleRepository = new CouseScheduleRepository(getApplication());
         courseScheduleRepository.getAllAssessments();// this is really just to set up the database if there isn't one on your device yet-otherwise synch errors later
@@ -130,36 +146,98 @@ public class DetailedCourseViewActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         List<AssessmentEntity> filteredAssessments = new ArrayList<>();
         for(AssessmentEntity c:courseScheduleRepository.getAllAssessments()){
-            if(c.getAssessmentID()==mCourseId)filteredAssessments.add(c);
+            if(c.getAssessmentCourseID()==mCourseId)filteredAssessments.add(c);
         }
         adapter.setWords(filteredAssessments);
+
+        numAssessments = filteredAssessments.size();
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_detail_course, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                this.finish();
+                return true;
+            case R.id.DeleteCourse:
+//                if (numAssessments == 0)
+                {
+                courseScheduleRepository.delete(currentCourse);
+                Toast.makeText(getApplicationContext(), "Course deleted", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(DetailedCourseViewActivity.this, CourseActivity.class);
+                startActivity(intent);
+                }
+//                else {
+//                    Toast.makeText(getApplicationContext(), "Can't delete a Course with Assessments", Toast.LENGTH_LONG).show();// make another toast
+//                }
+            case R.id.ReloadAssessments:
+                refreshList();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void addAssessmentPlusButton(View view) {
         Intent intent = new Intent(DetailedCourseViewActivity.this, DetailedAssessmentViewActivity.class);
-        intent.putExtra("courseId", mCourseId);
+        intent.putExtra("courseID", mCourseId);
+        startActivity(intent);
+    }
+
+    public void goToNote(View view) {
+        Intent intent = new Intent(DetailedCourseViewActivity.this, DetailedNoteViewActivity.class);
+        intent.putExtra("courseID", mCourseId);
+        mNoteId = mCourseId;
+        intent.putExtra("noteID", mNoteId);
         startActivity(intent);
     }
 
     public void addCourseFromScreen(View view) {
         CourseEntity c;
-
-        if(mCourseId != -1)
-            c = new CourseEntity(mCourseId, mTermId, mEditName.getText().toString(), LocalDate.parse(mEditStartDate.getText().toString()), LocalDate.parse(mEditEndDate.getText().toString()), mEditMentor.getText().toString(), mEditMentorPhone.getText().toString(), mEditMentorEmail.getText().toString(), mEditStatus.getText().toString());
-        else {
-            List<CourseEntity> allCourses = courseScheduleRepository.getAllCourses();
+        List<CourseEntity> allCourses = courseScheduleRepository.getAllCourses();
+        if(mCourseId == -1) {
             if(allCourses.isEmpty())
                 mCourseId = 0;
             else
                 mCourseId = allCourses.get(allCourses.size()-1).getCourseID();
-            c = new CourseEntity(++mCourseId, mTermId, mEditName.getText().toString(), LocalDate.parse(mEditStartDate.getText().toString()), LocalDate.parse(mEditEndDate.getText().toString()), mEditMentor.getText().toString(), mEditMentorPhone.getText().toString(), mEditMentorEmail.getText().toString(), mEditStatus.getText().toString());
+            c = new CourseEntity(++mCourseId, mCourseTermID, mEditName.getText().toString(), LocalDate.parse(mEditStartDate.getText().toString()), LocalDate.parse(mEditEndDate.getText().toString()), mEditMentor.getText().toString(), mEditMentorPhone.getText().toString(), mEditMentorEmail.getText().toString(), mEditStatus.getText().toString());
+            courseScheduleRepository.insert(c);
         }
-        courseScheduleRepository.insert(c);
+        else {
+            c = new CourseEntity(mCourseId, mCourseTermID, mEditName.getText().toString(), LocalDate.parse(mEditStartDate.getText().toString()), LocalDate.parse(mEditEndDate.getText().toString()), mEditMentor.getText().toString(), mEditMentorPhone.getText().toString(), mEditMentorEmail.getText().toString(), mEditStatus.getText().toString());
+            courseScheduleRepository.update(c);
+        }
+
+//        if(mCourseId != -1) {
+//            c = new CourseEntity(mCourseId, mCourseTermID, mEditName.getText().toString(), LocalDate.parse(mEditStartDate.getText().toString()), LocalDate.parse(mEditEndDate.getText().toString()), mEditMentor.getText().toString(), mEditMentorPhone.getText().toString(), mEditMentorEmail.getText().toString(), mEditStatus.getText().toString());
+//        }
+//        else {
+//            List<CourseEntity> allCourses = courseScheduleRepository.getAllCourses();
+//            if(allCourses.isEmpty())
+//                mCourseId = 0;
+//            else
+//                mCourseId = allCourses.get(allCourses.size()-1).getCourseID();
+//            c = new CourseEntity(++mCourseId, mCourseTermID, mEditName.getText().toString(), LocalDate.parse(mEditStartDate.getText().toString()), LocalDate.parse(mEditEndDate.getText().toString()), mEditMentor.getText().toString(), mEditMentorPhone.getText().toString(), mEditMentorEmail.getText().toString(), mEditStatus.getText().toString());
+//        }
+//        courseScheduleRepository.insert(c);
 
         Intent intent = new Intent(DetailedCourseViewActivity.this, CourseActivity.class);
-
+        intent.putExtra("termID", mCourseTermID);
         startActivity(intent);
+//        this.finish();
     }
-    public void noteDetail(View view) {
+
+    private void refreshList(){
+        final AssessmentAdapter adapter = new AssessmentAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        List<AssessmentEntity> filteredAssessments = new ArrayList<>();
+        for(AssessmentEntity c:courseScheduleRepository.getAllAssessments()){
+            if(c.getAssessmentCourseID()==mCourseId)filteredAssessments.add(c);
+        }
+        adapter.setWords(filteredAssessments);
     }
 }

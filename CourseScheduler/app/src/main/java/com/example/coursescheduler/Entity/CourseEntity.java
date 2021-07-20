@@ -8,63 +8,15 @@ import java.time.LocalDate;
 @Entity(tableName = "course_table")
 public class CourseEntity {
     @PrimaryKey
-//    @ColumnInfo(name = "courseID")
     private int courseID;
-
-//    @ColumnInfo(name = "courseTermID")
     private int courseTermID;
-
-//    @ColumnInfo(name = "courseName")
     private String courseName;
-
-//    @ColumnInfo(name = "startDate")
     private LocalDate startDate;
-
-//    @ColumnInfo(name = "endDate")
     private LocalDate endDate;
-
-//    @ColumnInfo(name = "courseMentor")
     private String courseMentor;
-
-//    @ColumnInfo(name = "courseMentorPhone")
     private String courseMentorPhone;
-
-//    @ColumnInfo(name = "courseMentorEmail")
     private String courseMentorEmail;
-
-//    @ColumnInfo(name = "courseStatus")
     private String courseStatus;
-
-//    private enum courseStatus {
-//        PTT {
-//            @Override
-//            public String toString() {
-//                return "Plan to take";
-//            }
-//        },
-//        IP {
-//            @Override
-//            public String toString() {
-//                return "In Progress";
-//            }
-//        },
-//        D {
-//            @Override
-//            public String toString() {
-//                return "Dropped";
-//            }
-//        },
-//        C {
-//            @Override
-//            public String toString() {
-//                return "Completed";
-//            }
-//        }
-//    }
-
-//    private enum courseStatus{
-//        Dropped, In_Progress, Plan_To_Take, Completed;
-//    }
 
     public CourseEntity(int courseID, int courseTermID, String courseName, LocalDate startDate, LocalDate endDate, String courseMentor, String courseMentorPhone, String courseMentorEmail, String courseStatus) {
         this.courseID = courseID;
@@ -82,14 +34,14 @@ public class CourseEntity {
     public String toString() {
         return "CourseEntity{" +
                 "courseID=" + courseID +
-                "courseTermID" + courseTermID +
+                "termID=" + courseTermID +
                 "courseName=" + courseName +
                 "startDate=" + startDate +
                 "eneDate=" + endDate +
                 "courseMentor=" + courseMentor +
                 "courseMentorPhone=" + courseMentorPhone +
                 "courseMentorEmail=" + courseMentorEmail +
-                "courseStatus" + courseStatus +
+                "courseStatus=" + courseStatus +
                 '}';
     }
 

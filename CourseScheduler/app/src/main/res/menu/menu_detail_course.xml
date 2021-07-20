@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.coursescheduler.UI.DetailedCourseViewActivity">
+    <item
+        android:id="@+id/DeleteCourse"
+        android:orderInCategory="100"
+        android:title="@string/delete_course"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/ReloadAssessments"
+        android:orderInCategory="100"
+        android:title="@string/reload_assessments"
+        app:showAsAction="never" />
+</menu>

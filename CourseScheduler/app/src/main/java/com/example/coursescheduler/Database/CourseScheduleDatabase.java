@@ -83,6 +83,8 @@ public abstract class CourseScheduleDatabase extends RoomDatabase {
             //Not needed if you only populate on creation.
 //            mTermDao.deleteAllTerms();
 //            mCourseDao.deleteAllCourses();
+//            mAssessmentDao.deleteAllAssessments();
+//            mNoteDao.deleteAllNotes();
 
 //            AssessmentEntity assessment = new AssessmentEntity(1, 1, "Test Assessment 1", LocalDate.parse("2021-07-01"), LocalDate.parse("2021-07-01"));
 //            mAssessmentDao.insert(assessment);

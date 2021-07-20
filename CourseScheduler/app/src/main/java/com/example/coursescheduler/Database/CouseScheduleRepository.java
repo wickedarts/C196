@@ -145,9 +145,9 @@ public class CouseScheduleRepository {
         }
     }
 
-    public void delete(TermEntity termEntity) {
+    public void update(TermEntity termEntity) {
         CourseScheduleDatabase.databaseWriteExecutor.execute(() -> {
-            mTermDAO.delete(termEntity);
+            mTermDAO.update(termEntity);
         });
         try {
             Thread.sleep(1000);
@@ -156,9 +156,42 @@ public class CouseScheduleRepository {
         }
     }
 
-    public void deleteAllTerms(TermEntity termEntity) {
+    public void update(CourseEntity courseEntity) {
         CourseScheduleDatabase.databaseWriteExecutor.execute(() -> {
-            mTermDAO.deleteAllTerms();
+            mCourseDAO.update(courseEntity);
+        });
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void update(AssessmentEntity assessmentEntity) {
+        CourseScheduleDatabase.databaseWriteExecutor.execute(() -> {
+            mAssessmentDAO.update(assessmentEntity);
+        });
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void update(NoteEntity noteEntity) {
+        CourseScheduleDatabase.databaseWriteExecutor.execute(() -> {
+            mNotesDAO.update(noteEntity);
+        });
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void delete(TermEntity termEntity) {
+        CourseScheduleDatabase.databaseWriteExecutor.execute(() -> {
+            mTermDAO.delete(termEntity);
         });
         try {
             Thread.sleep(1000);

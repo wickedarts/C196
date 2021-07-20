@@ -6,6 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.coursescheduler.Entity.TermEntity;
 
@@ -15,6 +16,9 @@ import java.util.List;
 public interface TermDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(TermEntity term);
+
+    @Update
+    void update(TermEntity term);
 
     @Delete
     void delete(TermEntity term);

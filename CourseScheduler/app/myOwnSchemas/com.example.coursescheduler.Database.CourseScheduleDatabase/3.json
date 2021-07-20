@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "e4b2981016ecdc62d0cf4343b2ef6f80",
+    "identityHash": "1da2e1e0db809043700b5f157172c154",
     "entities": [
       {
         "tableName": "term_table",
@@ -118,7 +118,7 @@
       },
       {
         "tableName": "assessment_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`assessmentID` INTEGER NOT NULL, `assessmentCourseID` INTEGER NOT NULL, `assessmentName` TEXT, `startDate` INTEGER, `assessmentType` TEXT, PRIMARY KEY(`assessmentID`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`assessmentID` INTEGER NOT NULL, `assessmentCourseID` INTEGER NOT NULL, `assessmentName` TEXT, `startDate` INTEGER, `endDate` INTEGER, `assessmentType` TEXT, `assessmentSelectionPosition` INTEGER NOT NULL, `descriptionText` TEXT, PRIMARY KEY(`assessmentID`))",
         "fields": [
           {
             "fieldPath": "assessmentID",
@@ -145,8 +145,26 @@
             "notNull": false
           },
           {
+            "fieldPath": "endDate",
+            "columnName": "endDate",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
             "fieldPath": "assessmentType",
             "columnName": "assessmentType",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "assessmentSelectionPosition",
+            "columnName": "assessmentSelectionPosition",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descriptionText",
+            "columnName": "descriptionText",
             "affinity": "TEXT",
             "notNull": false
           }
@@ -162,7 +180,7 @@
       },
       {
         "tableName": "note_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`noteID` INTEGER NOT NULL, `noteName` TEXT, `noteText` TEXT, PRIMARY KEY(`noteID`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`noteID` INTEGER NOT NULL, `noteCourseID` INTEGER NOT NULL, `noteText` TEXT, PRIMARY KEY(`noteID`))",
         "fields": [
           {
             "fieldPath": "noteID",
@@ -171,10 +189,10 @@
             "notNull": true
           },
           {
-            "fieldPath": "noteName",
-            "columnName": "noteName",
-            "affinity": "TEXT",
-            "notNull": false
+            "fieldPath": "noteCourseID",
+            "columnName": "noteCourseID",
+            "affinity": "INTEGER",
+            "notNull": true
           },
           {
             "fieldPath": "noteText",
@@ -196,7 +214,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e4b2981016ecdc62d0cf4343b2ef6f80')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1da2e1e0db809043700b5f157172c154')"
     ]
   }
 }

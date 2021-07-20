@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UI.ListOfTermsActivity">
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listOfTerms"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/darker_gray"
+        android:background="@color/ic_launcher_background"
         tools:listitem="@layout/term_list_item" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/term_fab"

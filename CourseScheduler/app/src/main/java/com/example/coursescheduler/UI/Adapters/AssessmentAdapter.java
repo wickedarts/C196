@@ -34,11 +34,13 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
                     final AssessmentEntity current = mAssessments.get(position);
                     Intent intent = new Intent(context, DetailedAssessmentViewActivity.class);
                     intent.putExtra("assessmentID", current.getAssessmentID());
-                    intent.putExtra("assessmentCourseID", current.getAssessmentCourseID());
+                    intent.putExtra("courseID", current.getAssessmentCourseID());
                     intent.putExtra("assessmentName", current.getAssessmentName());
-                    intent.putExtra("assessmentStartDate", current.getStartDate());
-//                    intent.putExtra("assessmentEndDate", current.getEndDate());
+                    intent.putExtra("assessmentStartDate", current.getStartDate().toString());
+                    intent.putExtra("assessmentEndDate", current.getEndDate().toString());
                     intent.putExtra("assessmentType", current.getAssessmentType());
+                    intent.putExtra("assessmentSelectionPosition", current.getAssessmentSelectionPosition());
+                    intent.putExtra("descriptionText", current.getDescriptionText());
                     intent.putExtra("position", position);
                     context.startActivity(intent);
                 }

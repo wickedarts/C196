@@ -17,17 +17,17 @@
 
         <activity
             android:name=".UI.DetailedNoteViewActivity"
-            android:label="Assessment Details"
+            android:label="Note Details"
             android:parentActivityName=".UI.DetailedCourseViewActivity" />
 
         <activity
             android:name=".UI.DetailedAssessmentViewActivity"
-            android:label="Assessment Details"
-            android:parentActivityName=".UI.DetailedCourseViewActivity"/>
+            android:label="Assessment Details" />
+<!--        android:parentActivityName=".UI.DetailedCourseViewActivity"-->
 
         <activity
             android:name=".UI.DetailedCourseViewActivity"
-            android:label="Course Details"
+            android:label="Course Details and Assessment List"
             android:parentActivityName=".UI.CourseActivity" />
 
         <activity

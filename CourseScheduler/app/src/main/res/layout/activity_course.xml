@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#0096D0"
     tools:context=".UI.CourseActivity"
     tools:visibility="visible">
 
@@ -33,11 +34,12 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listOfCourse"
         android:layout_width="match_parent"
-        android:layout_height="260dp"
-        android:background="@android:color/darker_gray"
+        android:layout_height="220dp"
+        android:background="@color/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonSaveTerm"
+        app:layout_constraintVertical_bias="1.0"
         tools:listitem="@layout/course_list_item" />
 
     <EditText
@@ -103,23 +105,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/buttonDeleteTerm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="4dp"
-        android:text="Delete"
-        app:layout_constraintStart_toEndOf="@+id/buttonSaveTerm"
-        app:layout_constraintTop_toBottomOf="@+id/calendarViewTerm" />
-
-    <Button
         android:id="@+id/buttonSaveTerm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
         android:layout_marginTop="4dp"
         android:onClick="addTermFromScreen"
         android:text="Save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarViewTerm" />
 
