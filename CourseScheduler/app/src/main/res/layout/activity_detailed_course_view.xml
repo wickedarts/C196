@@ -10,13 +10,13 @@
 
     <CalendarView
         android:id="@+id/calendarViewCourse"
-        android:layout_width="match_parent"
-        android:layout_height="260dp"
-        android:layout_marginTop="42dp"
+        android:layout_width="0dp"
+        android:layout_height="287dp"
         android:background="@android:color/darker_gray"
         android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statusDynamicCourse"
+        app:layout_constraintTop_toBottomOf="@+id/mentorName"
         tools:visibility="visible" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -33,11 +33,15 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listOfAssessments"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@color/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendarViewCourse"
+        app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/assessment_list_item" />
 
     <EditText
@@ -88,40 +92,15 @@
         app:layout_constraintStart_toEndOf="@+id/startDateCourseText"
         app:layout_constraintTop_toBottomOf="@+id/courseTitle" />
 
-    <Button
-        android:id="@+id/buttonSaveCourse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="40dp"
-        android:onClick="addCourseFromScreen"
-        android:text="Save"
-        app:layout_constraintEnd_toStartOf="@+id/buttonNoteCourse"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendarViewCourse" />
-
-    <Button
-        android:id="@+id/buttonNoteCourse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="32dp"
-        android:onClick="goToNote"
-        android:text="Note"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.885"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendarViewCourse" />
-
     <TextView
         android:id="@+id/dateInMillsCourseHIDE"
         android:layout_width="60dp"
         android:layout_height="32dp"
         android:text="TextViewHIDDEN"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startDateDynamicCourse" />
+        app:layout_constraintTop_toBottomOf="@+id/startDateDynamicCourse"
+        tools:visibility="invisible" />
 
     <EditText
         android:id="@+id/courseTitle"
@@ -138,20 +117,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/statusDynamicCourse"
-        android:layout_width="248dp"
-        android:layout_height="37dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Course Status"
-        android:textAlignment="center"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.441"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startDateDynamicCourse" />
-
-    <EditText
         android:id="@+id/mentorName"
         android:layout_width="120dp"
         android:layout_height="37dp"
@@ -163,7 +128,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.012"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statusDynamicCourse" />
+        app:layout_constraintTop_toTopOf="@+id/mentorPhone" />
 
     <EditText
         android:id="@+id/mentorPhone"
@@ -177,7 +142,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statusDynamicCourse" />
+        app:layout_constraintTop_toBottomOf="@+id/statusSpinner" />
 
     <EditText
         android:id="@+id/mentorEmail"
@@ -191,14 +156,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.948"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statusDynamicCourse" />
+        app:layout_constraintTop_toTopOf="@+id/mentorPhone" />
 
     <TextView
         android:id="@+id/courseTermIDHidden"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/dateInMillsCourseHIDE"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="invisible" />
+
+    <Spinner
+        android:id="@+id/statusSpinner"
+        android:layout_width="160dp"
+        android:layout_height="31dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startDateDynamicCourse" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

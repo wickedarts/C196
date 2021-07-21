@@ -147,6 +147,10 @@ public class CourseActivity extends AppCompatActivity {
             case android.R.id.home:
                 this.finish();
                 return true;
+            case R.id.SaveTerm:
+                addTermFromScreen();
+                Toast.makeText(getApplicationContext(), "Term saved", Toast.LENGTH_LONG).show();
+                return true;
             case R.id.DeleteTerm:
                 if (numCourses == 0) {
                     courseScheduleRepository.delete(currentTerm);
@@ -170,7 +174,7 @@ public class CourseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void addTermFromScreen(View view) {
+    public void addTermFromScreen() {
         TermEntity p;
         List<TermEntity> allTerms = courseScheduleRepository.getAllTerms();
 
@@ -193,36 +197,14 @@ public class CourseActivity extends AppCompatActivity {
             p = new TermEntity(mTermId, mEditTermTitle.getText().toString(), LocalDate.parse(mEditStartDateDynamic.getText()), LocalDate.parse(mEditEndDateDynamic.getText()), isCurrentTerm);
             courseScheduleRepository.update(p);
         }
-//        if(mTermId!=-1) {
-//            p = new TermEntity(mTermId, mEditTermTitle.getText().toString(), LocalDate.parse(mEditStartDateDynamic.getText()), LocalDate.parse(mEditEndDateDynamic.getText()), isCurrentTerm);
-//        }
-//        else {
-//            List<TermEntity> allTerms = courseScheduleRepository.getAllTerms();
-//            if (allTerms.isEmpty())
-//                mTermId = 0;
-//            else
-//                mTermId = allTerms.get(allTerms.size()-1).getTermID();
-//            p = new TermEntity(++mTermId, mEditTermTitle.getText().toString(), LocalDate.parse(mEditStartDateDynamic.getText()), LocalDate.parse(mEditEndDateDynamic.getText()), isCurrentTerm);
-//        }
-//        courseScheduleRepository.insert(p);
 
         Intent intent = new Intent(CourseActivity.this, ListOfTermsActivity.class);
         startActivity(intent);
 //        this.finish();
     }
 
-    public void deleteTermFromScreen(View view) {
-        if (numCourses == 0) {
-            courseScheduleRepository.delete(currentTerm);
-            Toast.makeText(getApplicationContext(), "Term deleted", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(CourseActivity.this, ListOfTermsActivity.class);
-            startActivity(intent);
-        } else {
-            Toast.makeText(getApplicationContext(), "Can't delete a Term with Courses", Toast.LENGTH_LONG).show();// make another toast
-        }
-    }
-
     private void refreshList(){
+        RecyclerView recyclerView = findViewById(R.id.listOfCourse);
         final CourseAdapter adapter = new CourseAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

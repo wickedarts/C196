@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "1da2e1e0db809043700b5f157172c154",
+    "identityHash": "1f5ec275c9ca263d027de5aa093bcf7b",
     "entities": [
       {
         "tableName": "term_table",
@@ -50,7 +50,7 @@
       },
       {
         "tableName": "course_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`courseID` INTEGER NOT NULL, `courseTermID` INTEGER NOT NULL, `courseName` TEXT, `startDate` INTEGER, `endDate` INTEGER, `courseMentor` TEXT, `courseMentorPhone` TEXT, `courseMentorEmail` TEXT, `courseStatus` TEXT, PRIMARY KEY(`courseID`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`courseID` INTEGER NOT NULL, `courseTermID` INTEGER NOT NULL, `courseName` TEXT, `startDate` INTEGER, `endDate` INTEGER, `courseMentor` TEXT, `courseMentorPhone` TEXT, `courseMentorEmail` TEXT, `courseStatus` TEXT, `courseStatusSelectionPosition` INTEGER NOT NULL, PRIMARY KEY(`courseID`))",
         "fields": [
           {
             "fieldPath": "courseID",
@@ -105,6 +105,12 @@
             "columnName": "courseStatus",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "courseStatusSelectionPosition",
+            "columnName": "courseStatusSelectionPosition",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -214,7 +220,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1da2e1e0db809043700b5f157172c154')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1f5ec275c9ca263d027de5aa093bcf7b')"
     ]
   }
 }

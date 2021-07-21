@@ -10,12 +10,14 @@
 
     <CalendarView
         android:id="@+id/calendarViewAssessment"
-        android:layout_width="match_parent"
-        android:layout_height="260dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@android:color/darker_gray"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/assessmentDescription"
         tools:visibility="visible" />
 
     <EditText
@@ -59,6 +61,7 @@
         android:id="@+id/startTimeAssessmentText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="@string/assessment_type"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -67,24 +70,12 @@
         app:layout_constraintStart_toEndOf="@+id/startDateAssessmentText"
         app:layout_constraintTop_toBottomOf="@+id/assessmentTitle" />
 
-    <Button
-        android:id="@+id/buttonSaveAssessment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:onClick="addAssessmentFromScreen"
-        android:text="Save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/assessmentDescription" />
-
     <TextView
         android:id="@+id/dateInMillsAssessmentHIDE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextViewHIDDEN"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/calendarViewAssessment"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -106,14 +97,16 @@
         android:id="@+id/assessmentDescription"
         android:layout_width="354dp"
         android:layout_height="225dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:inputType="textMultiLine"
         android:text="This course introduces students to programming for mobile devices using a software development kit (SDK). Students with previous knowledge of programming will learn how to install and utilize a SDK, build a basic mobile application, build a mobile application using a graphical user interface (GUI), adapt applications to different mobile devices, save data, execute and debug mobile applications using emulators, and deploy a mobile application."
         android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/dateInMillsAssessmentHIDE"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startDateDynamicAssessment" />
+        app:layout_constraintTop_toBottomOf="@+id/endDateDynamicAssessment" />
 
     <Spinner
         android:id="@+id/spinnerAssessment"

@@ -1,5 +1,8 @@
 package com.example.coursescheduler.UI;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,16 +21,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.coursescheduler.Database.CouseScheduleRepository;
 import com.example.coursescheduler.Entity.AssessmentEntity;
 import com.example.coursescheduler.R;
+import com.example.coursescheduler.ViewModel.MyReceiver;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class DetailedAssessmentViewActivity extends AppCompatActivity {
     private CouseScheduleRepository courseScheduleRepository;
+    private DetailedCourseViewActivity detailedCourseViewActivity;
     private Spinner assessmentTypeSpinner;
+    public static int numAlert;
+    public static int numAlert2;
 
     static int id3;
 
@@ -49,6 +60,8 @@ public class DetailedAssessmentViewActivity extends AppCompatActivity {
     int assessmentSelectionPosition;
     EditText mEditAssessmentDescription;
 
+    Long dateStart;
+    Long dateEnd;
 
     LocalDate currentDate = LocalDate.now();
 
@@ -131,15 +144,6 @@ public class DetailedAssessmentViewActivity extends AppCompatActivity {
         mEditAssessmentType = findViewById(R.id.spinnerAssessment);
         mEditAssessmentDescription = findViewById(R.id.assessmentDescription);
 
-//        if (currentAssessment != null) {
-//            assessmentName = currentAssessment.getAssessmentName();
-//            startDate = currentAssessment.getStartDate().toString();
-//            endDate = currentAssessment.getEndDate().toString();
-//            assessmentType = currentAssessment.getAssessmentType();
-//            assessmentSelectionPosition = currentAssessment.getAssessmentSelectionPosition();
-//            assessmentDescription = currentAssessment.getDescriptionText();
-//        }
-
         if (mAssessmentId != -1) {
             mEditAssessmentName.setText(assessmentName);
             mEditStartDateDynamic.setText(startDate);
@@ -162,19 +166,54 @@ public class DetailedAssessmentViewActivity extends AppCompatActivity {
             case android.R.id.home:
                 this.finish();
                 return true;
+            case R.id.SaveAssessment:
+                addAssessmentFromScreen();
+                Toast.makeText(getApplicationContext(), "Assessment saved", Toast.LENGTH_LONG).show();
+                return true;
             case R.id.DeleteAssessment:
-//                if (numAssessments == 0)
-            {
                 courseScheduleRepository.delete(currentAssessment);
                 Toast.makeText(getApplicationContext(), "Assessment deleted", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(DetailedAssessmentViewActivity.this, DetailedCourseViewActivity.class);
                 startActivity(intent);
-            }
+            case R.id.AssessmentStartNotification:
+                Intent intent2=new Intent(DetailedAssessmentViewActivity.this, MyReceiver.class);
+                intent2.putExtra("key","This is a short message");
+                PendingIntent sender= PendingIntent.getBroadcast(DetailedAssessmentViewActivity.this,++numAlert,intent2,0);
+                AlarmManager alarmManager=(AlarmManager)getSystemService(Context.ALARM_SERVICE);
+                String dateFromScreen=mEditStartDateDynamic.getText().toString();
+                String myFormat = "MM/dd/yy"; //In which you need put here
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+                Date myDate=null;
+                try {
+                    myDate=sdf.parse(dateFromScreen);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                dateStart=myDate.getTime();
+                alarmManager.set(AlarmManager.RTC_WAKEUP, dateStart, sender);
+                return true;
+            case R.id.AssessmentEndNotification:
+                Intent intent3=new Intent(DetailedAssessmentViewActivity.this, MyReceiver.class);
+                intent3.putExtra("key","This is a short message");
+                PendingIntent sender2= PendingIntent.getBroadcast(DetailedAssessmentViewActivity.this,++numAlert2,intent3,0);
+                AlarmManager alarmManager2=(AlarmManager)getSystemService(Context.ALARM_SERVICE);
+                String dateFromScreen2=mEditEndDateDynamic.getText().toString();
+                String myFormat2 = "MM/dd/yy"; //In which you need put here
+                SimpleDateFormat sdf2 = new SimpleDateFormat(myFormat2, Locale.US);
+                Date myDate2=null;
+                try {
+                    myDate2=sdf2.parse(dateFromScreen2);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                dateEnd=myDate2.getTime();
+                alarmManager2.set(AlarmManager.RTC_WAKEUP, dateEnd, sender2);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void addAssessmentFromScreen(View view) {
+    public void addAssessmentFromScreen() {
         AssessmentEntity a;
 
         List<AssessmentEntity> allAssessments = courseScheduleRepository.getAllAssessments();
@@ -191,22 +230,10 @@ public class DetailedAssessmentViewActivity extends AppCompatActivity {
             a = new AssessmentEntity(mAssessmentId, mCourseId, mEditAssessmentName.getText().toString(), LocalDate.parse(mEditStartDateDynamic.getText().toString()), LocalDate.parse(mEditEndDateDynamic.getText().toString()), mEditAssessmentType.getSelectedItem().toString(), assessmentSelectionPosition, mEditAssessmentDescription.getText().toString());
             courseScheduleRepository.update(a);
         }
-//        if(mAssessmentId!=-1) {
-//            a = new AssessmentEntity(mAssessmentId, mCourseId, mEditAssessmentName.getText().toString(), LocalDate.parse(mEditStartDateDynamic.getText().toString()), LocalDate.parse(mEditEndDateDynamic.getText().toString()), mEditAssessmentType.getSelectedItem().toString(), assessmentSelectionPosition, mEditAssessmentDescription.getText().toString());
-//        }
-//        else {
-//            List<AssessmentEntity> allAssessments = courseScheduleRepository.getAllAssessments();
-//            if(allAssessments.isEmpty())
-//                mAssessmentId = 0;
-//            else
-//                mAssessmentId = allAssessments.get(allAssessments.size()-1).getAssessmentID();
-//            a = new AssessmentEntity(++mAssessmentId, mCourseId, mEditAssessmentName.getText().toString(), LocalDate.parse(mEditStartDateDynamic.getText().toString()), LocalDate.parse(mEditEndDateDynamic.getText().toString()), mEditAssessmentType.getSelectedItem().toString(), assessmentSelectionPosition, mEditAssessmentDescription.getText().toString());
-//        }
-//        courseScheduleRepository.insert(a);
 
-        Intent intent = new Intent(DetailedAssessmentViewActivity.this, DetailedCourseViewActivity.class);
-        intent.putExtra("courseID", mCourseId);
-        startActivity(intent);
-//        this.finish();
+//        Intent intent = new Intent(DetailedAssessmentViewActivity.this, DetailedCourseViewActivity.class);
+//        intent.putExtra("courseID", mCourseId);
+//        startActivity(intent);
+        this.finish();
     }
 }

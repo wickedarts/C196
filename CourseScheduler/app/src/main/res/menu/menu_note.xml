@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.coursescheduler.UI.DetailedCourseViewActivity">
+    <item
+        android:id="@+id/SaveNote"
+        android:orderInCategory="100"
+        android:title="@string/save_note"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/ShareNote"
+        android:orderInCategory="100"
+        android:title="@string/share_note"
+        app:showAsAction="never" />
+</menu>

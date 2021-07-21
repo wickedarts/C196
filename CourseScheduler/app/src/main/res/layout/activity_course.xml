@@ -10,37 +10,37 @@
 
     <CalendarView
         android:id="@+id/calendarViewTerm"
-        android:layout_width="match_parent"
-        android:layout_height="260dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="0dp"
+        android:layout_height="301dp"
         android:background="@android:color/darker_gray"
         android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/startDateDynamicTerm"
         tools:visibility="visible" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listOfCourse"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/ic_launcher_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendarViewTerm"
+        tools:listitem="@layout/course_list_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/term_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
         android:onClick="addCoursePlusButton"
         android:src="@drawable/ic_baseline_add_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listOfCourse"
-        android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:background="@color/ic_launcher_background"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSaveTerm"
-        app:layout_constraintVertical_bias="1.0"
-        tools:listitem="@layout/course_list_item" />
 
     <EditText
         android:id="@+id/startDateDynamicTerm"
@@ -104,26 +104,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/buttonSaveTerm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:onClick="addTermFromScreen"
-        android:text="Save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendarViewTerm" />
-
     <TextView
         android:id="@+id/dateInMillsCourseHIDE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextViewHIDDEN"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/calendarViewTerm"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/startDateDynamicTerm" />
 
     <TextView
         android:id="@+id/currentTermText"

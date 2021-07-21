@@ -3,9 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.coursescheduler.UI.DetailedCourseViewActivity">
     <item
+        android:id="@+id/SaveCourse"
+        android:orderInCategory="100"
+        android:title="@string/save_course"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/DeleteCourse"
         android:orderInCategory="100"
         android:title="@string/delete_course"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/CourseNote"
+        android:orderInCategory="100"
+        android:title="@string/note_course"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/CourseStartNotification"
+        android:orderInCategory="100"
+        android:title="@string/course_start_notifications"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/CourseEndNotification"
+        android:orderInCategory="100"
+        android:title="@string/course_end_notifications"
         app:showAsAction="never" />
     <item
         android:id="@+id/ReloadAssessments"

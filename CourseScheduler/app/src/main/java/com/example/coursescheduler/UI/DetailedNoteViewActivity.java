@@ -1,15 +1,16 @@
 package com.example.coursescheduler.UI;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.coursescheduler.Database.CouseScheduleRepository;
-import com.example.coursescheduler.Entity.AssessmentEntity;
 import com.example.coursescheduler.Entity.NoteEntity;
 import com.example.coursescheduler.R;
 
@@ -30,6 +31,9 @@ public class DetailedNoteViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_note_view);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         mNoteId = getIntent().getIntExtra("noteID", -1);
         mCourseId = getIntent().getIntExtra("courseID", -1);
@@ -57,7 +61,7 @@ public class DetailedNoteViewActivity extends AppCompatActivity {
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_note, menu);
         return true;
     }
 
@@ -66,11 +70,27 @@ public class DetailedNoteViewActivity extends AppCompatActivity {
             case android.R.id.home:
                 this.finish();
                 return true;
+            case R.id.SaveNote:
+                addNoteFromScreen();
+                Toast.makeText(getApplicationContext(), "Note saved", Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.ShareNote:
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, mNoteText.getText().toString());
+                // (Optional) Here we're setting the title of the content
+                sendIntent.putExtra(Intent.EXTRA_TITLE, "Course Note");
+                sendIntent.setType("text/plain");
+
+                Intent shareIntent = Intent.createChooser(sendIntent, null);
+                startActivity(shareIntent);
+                Toast.makeText(getApplicationContext(), "Note sent", Toast.LENGTH_LONG).show();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void addNoteFromScreen(View view) {
+    public void addNoteFromScreen() {
         NoteEntity n;
 
         if(mNoteId!=-1) {
@@ -82,9 +102,11 @@ public class DetailedNoteViewActivity extends AppCompatActivity {
             mNoteId = allNotes.get(allNotes.size()-1).getNoteID();
             n = new NoteEntity(mNoteId, mCourseId, mNoteText.getText().toString());
         }
-
         couseScheduleRepository.insert(n);
 
+//        Intent intent = new Intent(DetailedNoteViewActivity.this, DetailedCourseViewActivity.class);
+//        intent.putExtra("courseID", mCourseId);
+//        startActivity(intent);
         this.finish();
     }
 }

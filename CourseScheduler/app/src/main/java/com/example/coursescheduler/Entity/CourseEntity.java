@@ -17,8 +17,9 @@ public class CourseEntity {
     private String courseMentorPhone;
     private String courseMentorEmail;
     private String courseStatus;
+    private int courseStatusSelectionPosition;
 
-    public CourseEntity(int courseID, int courseTermID, String courseName, LocalDate startDate, LocalDate endDate, String courseMentor, String courseMentorPhone, String courseMentorEmail, String courseStatus) {
+    public CourseEntity(int courseID, int courseTermID, String courseName, LocalDate startDate, LocalDate endDate, String courseMentor, String courseMentorPhone, String courseMentorEmail, String courseStatus, int courseStatusSelectionPosition) {
         this.courseID = courseID;
         this.courseTermID = courseTermID;
         this.courseName = courseName;
@@ -28,6 +29,7 @@ public class CourseEntity {
         this.courseMentorPhone = courseMentorPhone;
         this.courseMentorEmail = courseMentorEmail;
         this.courseStatus = courseStatus;
+        this.courseStatusSelectionPosition = courseStatusSelectionPosition;
     }
 
     @Override
@@ -42,6 +44,7 @@ public class CourseEntity {
                 "courseMentorPhone=" + courseMentorPhone +
                 "courseMentorEmail=" + courseMentorEmail +
                 "courseStatus=" + courseStatus +
+                "courseStatusSelectionPosition" + courseStatusSelectionPosition +
                 '}';
     }
 
@@ -80,4 +83,8 @@ public class CourseEntity {
     public String getCourseStatus() { return courseStatus; }
 
     public void setCourseStatus(String courseStatus) { this.courseStatus = courseStatus; }
+
+    public int getCourseStatusSelectionPosition() { return courseStatusSelectionPosition; }
+
+    public void setCourseStatusSelectionPosition(int courseStatusSelectionPosition) { this.courseStatusSelectionPosition = courseStatusSelectionPosition; }
 }

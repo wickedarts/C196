@@ -11,8 +11,8 @@
         android:id="@+id/assessmentTitleLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/course_label"
+        android:layout_marginTop="8dp"
+        android:text="@string/assessment_label"
         android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imageCourseListItem"
@@ -22,19 +22,17 @@
         android:id="@+id/assessmentStartDateDynamic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="YEAR-MM-DD"
         android:textSize="18sp"
         android:textStyle="normal"
         app:layout_constraintStart_toEndOf="@+id/imageCourseListItem"
-        app:layout_constraintTop_toBottomOf="@+id/assessmentTitleLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/assessmentTitleTextDynamic" />
 
     <TextView
         android:id="@+id/assessmentEndDateDynamic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:text="YEAR-MM-DD"
         android:textSize="18sp"
         android:textStyle="normal"
@@ -45,12 +43,10 @@
         android:id="@+id/assessmentTitleTextDynamic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
         android:text="TextView"
         android:textSize="22sp"
-        app:layout_constraintStart_toEndOf="@+id/assessmentTitleLabel"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/imageCourseListItem"
+        app:layout_constraintTop_toBottomOf="@+id/assessmentTitleLabel" />
 
     <ImageView
         android:id="@+id/imageCourseListItem"

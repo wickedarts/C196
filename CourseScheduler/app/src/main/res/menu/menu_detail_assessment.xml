@@ -3,8 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.coursescheduler.UI.DetailedCourseViewActivity">
     <item
+        android:id="@+id/SaveAssessment"
+        android:orderInCategory="100"
+        android:title="@string/save_assessment"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/DeleteAssessment"
         android:orderInCategory="100"
         android:title="@string/delete_assessment"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/AssessmentStartNotification"
+        android:orderInCategory="100"
+        android:title="@string/assessment_start_notifications"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/AssessmentEndNotification"
+        android:orderInCategory="100"
+        android:title="@string/assessment_end_notifications"
         app:showAsAction="never" />
 </menu>

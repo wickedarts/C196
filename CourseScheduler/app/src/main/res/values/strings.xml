@@ -6,19 +6,33 @@
     <string name="start_date">Start Date</string>
     <string name="end_date">End Date</string>
     <string name="course_label">Course</string>
+    <string name="assessment_label">Assessment</string>
     <string name="course_list">Course List</string>
-    <string name="sharing">Sharing</string>
-    <string name="notifications">Notifications</string>
+    <string name="sharing">Note Sharing</string>
+    <string name="assessment_start_notifications">Start Date Notification</string>
+    <string name="assessment_end_notifications">End Date Notification</string>
+    <string name="course_start_notifications">Start Date Notification</string>
+    <string name="course_end_notifications">End Date Notification</string>
     <string name="assessment_list">Assessment List</string>
-    <string name="note">Note</string>
     <string name="assessment_type">Type</string>
+
     <string name="start_end_date">Start/End Date</string>
     <string name="course_scheduler_title">Course Scheduler</string>
     <string name="reload_assessments">Reload Assessments</string>
     <string name="reload_courses">Reload Courses</string>
+    <string name="save_term">Save Term</string>
     <string name="delete_term">Delete Term</string>
+    <string name="save_course">Save Course</string>
     <string name="delete_course">Delete Course</string>
+    <string name="save_assessment">Save Assessment</string>
     <string name="delete_assessment">Delete Assessment</string>
+    <string name="note_course">Course Note</string>
+    <string name="save_note">Save Note</string>
+    <string name="share_note">Share Note</string>
+    <string name="clear_database">Clear Database</string>
+
+    <string name="channel_name">Course Notifications</string>
+    <string name="channel_description">Notifications for Course Scheduler App</string>
 
     <string-array name="status">
         <item>Plan To Take</item>
