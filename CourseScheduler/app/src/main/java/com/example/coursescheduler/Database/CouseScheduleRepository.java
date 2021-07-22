@@ -189,6 +189,50 @@ public class CouseScheduleRepository {
         }
     }
 
+    public void deleteALl(TermEntity termEntity) {
+        CourseScheduleDatabase.databaseWriteExecutor.execute(() -> {
+            mTermDAO.deleteAllTerms();
+        });
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteAll(CourseEntity courseEntity) {
+        CourseScheduleDatabase.databaseWriteExecutor.execute(() -> {
+            mCourseDAO.deleteAllCourses();
+        });
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteAll(AssessmentEntity assessmentEntity) {
+        CourseScheduleDatabase.databaseWriteExecutor.execute(() -> {
+            mAssessmentDAO.deleteAllAssessments();
+        });
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteAll(NoteEntity noteEntity) {
+        CourseScheduleDatabase.databaseWriteExecutor.execute(() -> {
+            mNotesDAO.deleteAllNotes();
+        });
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void delete(TermEntity termEntity) {
         CourseScheduleDatabase.databaseWriteExecutor.execute(() -> {
             mTermDAO.delete(termEntity);
@@ -202,7 +246,7 @@ public class CouseScheduleRepository {
 
     public void delete(CourseEntity courseEntity) {
         CourseScheduleDatabase.databaseWriteExecutor.execute(() -> {
-            mCourseDAO.deleteAllCourses();
+            mCourseDAO.delete(courseEntity);
         });
         try {
             Thread.sleep(1000);
@@ -213,7 +257,7 @@ public class CouseScheduleRepository {
 
     public void delete(AssessmentEntity assessmentEntity) {
         CourseScheduleDatabase.databaseWriteExecutor.execute(() -> {
-            mAssessmentDAO.deleteAllAssessments();
+            mAssessmentDAO.delete(assessmentEntity);
         });
         try {
             Thread.sleep(1000);
@@ -224,7 +268,7 @@ public class CouseScheduleRepository {
 
     public void delete(NoteEntity noteEntity) {
         CourseScheduleDatabase.databaseWriteExecutor.execute(() -> {
-            mNotesDAO.deleteAllNotes();
+            mNotesDAO.delete(noteEntity);
         });
         try {
             Thread.sleep(1000);

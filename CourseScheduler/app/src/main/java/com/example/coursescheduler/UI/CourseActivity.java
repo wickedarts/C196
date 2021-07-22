@@ -127,7 +127,6 @@ public class CourseActivity extends AppCompatActivity {
         final CourseAdapter adapter = new CourseAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         List<CourseEntity> filterCourses = new ArrayList<>();
         for (CourseEntity p : courseScheduleRepository.getAllCourses()) {
             if (p.getCourseTermID() == mTermId) filterCourses.add(p);
@@ -155,12 +154,13 @@ public class CourseActivity extends AppCompatActivity {
                 if (numCourses == 0) {
                     courseScheduleRepository.delete(currentTerm);
                     Toast.makeText(getApplicationContext(), "Term deleted", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(CourseActivity.this, ListOfAssessmentsActivity.class);
+                    Intent intent = new Intent(CourseActivity.this, ListOfTermsActivity.class);
                     startActivity(intent);
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Can't delete a Term with Courses", Toast.LENGTH_LONG).show();// make another toast
                 }
+                return true;
             case R.id.ReloadCourses:
                 refreshList();
                 return true;

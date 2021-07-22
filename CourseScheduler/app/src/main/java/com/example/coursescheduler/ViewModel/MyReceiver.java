@@ -24,7 +24,7 @@ public class MyReceiver extends BroadcastReceiver {
         Notification n= new NotificationCompat.Builder(context, channel_id)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentText(intent.getStringExtra("key"))
-                .setContentTitle("Test of Notification with an id of :"+Integer.toString(notificationID)).build();
+                .setContentTitle("Course Scheduler Notification:"+Integer.toString(notificationID)).build();
 
         NotificationManager notificationManager=(NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(notificationID++,n);

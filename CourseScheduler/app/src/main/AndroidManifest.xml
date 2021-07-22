@@ -10,15 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CourseScheduler">
 
-<!--        <receiver-->
-<!--            android:name=".MyReceiver"-->
-<!--            android:enabled="true"-->
-<!--            android:exported="true"></receiver>-->
+        <receiver
+            android:name=".ViewModel.MyReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
 
         <activity
             android:name=".UI.DetailedNoteViewActivity"
-            android:label="Note Details"
-            android:parentActivityName=".UI.DetailedCourseViewActivity" />
+            android:label="Note Details" />
+<!--        android:parentActivityName=".UI.DetailedCourseViewActivity"-->
 
         <activity
             android:name=".UI.DetailedAssessmentViewActivity"
@@ -27,13 +27,13 @@
 
         <activity
             android:name=".UI.DetailedCourseViewActivity"
-            android:label="Course Details and Assessment List"
-            android:parentActivityName=".UI.CourseActivity" />
+            android:label="Course Details and Assessment List" />
+<!--        android:parentActivityName=".UI.CourseActivity"-->
 
         <activity
             android:name=".UI.CourseActivity"
-            android:label="Term Details and Course List"
-            android:parentActivityName=".UI.ListOfTermsActivity"/>
+            android:label="Term Details and Course List" />
+<!--        android:parentActivityName=".UI.ListOfTermsActivity"-->
 
         <activity
             android:name=".UI.ListOfTermsActivity"

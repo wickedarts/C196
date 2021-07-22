@@ -1,12 +1,14 @@
 package com.example.coursescheduler.DAO;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.coursescheduler.Entity.NoteEntity;
+import com.example.coursescheduler.Entity.TermEntity;
 
 import java.util.List;
 
@@ -14,6 +16,9 @@ import java.util.List;
 public interface NoteDAO {
     @Insert (onConflict = OnConflictStrategy.REPLACE)
     void insert(NoteEntity note);
+
+    @Delete
+    void delete(NoteEntity term);
 
     @Update
     void update(NoteEntity note);

@@ -37,8 +37,6 @@ public class DetailedAssessmentViewActivity extends AppCompatActivity {
     private CouseScheduleRepository courseScheduleRepository;
     private DetailedCourseViewActivity detailedCourseViewActivity;
     private Spinner assessmentTypeSpinner;
-    public static int numAlert;
-    public static int numAlert2;
 
     static int id3;
 
@@ -175,13 +173,14 @@ public class DetailedAssessmentViewActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Assessment deleted", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(DetailedAssessmentViewActivity.this, DetailedCourseViewActivity.class);
                 startActivity(intent);
+                return true;
             case R.id.AssessmentStartNotification:
-                Intent intent2=new Intent(DetailedAssessmentViewActivity.this, MyReceiver.class);
-                intent2.putExtra("key","This is a short message");
-                PendingIntent sender= PendingIntent.getBroadcast(DetailedAssessmentViewActivity.this,++numAlert,intent2,0);
+                Intent intent0=new Intent(DetailedAssessmentViewActivity.this, MyReceiver.class);
+                intent0.putExtra("key","Your assessment: " + mEditAssessmentName.getText().toString() + " starts today.");
+                PendingIntent sender= PendingIntent.getBroadcast(DetailedAssessmentViewActivity.this,++DetailedCourseViewActivity.numAlert,intent0,0);
                 AlarmManager alarmManager=(AlarmManager)getSystemService(Context.ALARM_SERVICE);
                 String dateFromScreen=mEditStartDateDynamic.getText().toString();
-                String myFormat = "MM/dd/yy"; //In which you need put here
+                String myFormat = "yyyy-MM-dd"; //In which you need put here
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
                 Date myDate=null;
                 try {
@@ -193,12 +192,12 @@ public class DetailedAssessmentViewActivity extends AppCompatActivity {
                 alarmManager.set(AlarmManager.RTC_WAKEUP, dateStart, sender);
                 return true;
             case R.id.AssessmentEndNotification:
-                Intent intent3=new Intent(DetailedAssessmentViewActivity.this, MyReceiver.class);
-                intent3.putExtra("key","This is a short message");
-                PendingIntent sender2= PendingIntent.getBroadcast(DetailedAssessmentViewActivity.this,++numAlert2,intent3,0);
+                Intent intent1=new Intent(DetailedAssessmentViewActivity.this, MyReceiver.class);
+                intent1.putExtra("key","Your assessment: " + mEditAssessmentName.getText().toString() + " ends today.");
+                PendingIntent sender2= PendingIntent.getBroadcast(DetailedAssessmentViewActivity.this,++DetailedCourseViewActivity.numAlert,intent1,0);
                 AlarmManager alarmManager2=(AlarmManager)getSystemService(Context.ALARM_SERVICE);
                 String dateFromScreen2=mEditEndDateDynamic.getText().toString();
-                String myFormat2 = "MM/dd/yy"; //In which you need put here
+                String myFormat2 = "yyyy-MM-dd"; //In which you need put here
                 SimpleDateFormat sdf2 = new SimpleDateFormat(myFormat2, Locale.US);
                 Date myDate2=null;
                 try {

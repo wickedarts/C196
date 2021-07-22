@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.coursescheduler.Database.CouseScheduleRepository;
 import com.example.coursescheduler.Entity.AssessmentEntity;
 import com.example.coursescheduler.Entity.CourseEntity;
+import com.example.coursescheduler.Entity.NoteEntity;
 import com.example.coursescheduler.R;
 import com.example.coursescheduler.UI.Adapters.AssessmentAdapter;
 import com.example.coursescheduler.ViewModel.MyReceiver;
@@ -41,8 +42,7 @@ import java.util.Locale;
 public class DetailedCourseViewActivity extends AppCompatActivity {
     private CouseScheduleRepository courseScheduleRepository;
     private Spinner courseStatusSpinner;
-    public static int numAlert3;
-    public static int numAlert4;
+    public static int numAlert;
 
     static int id2;
 
@@ -76,6 +76,8 @@ public class DetailedCourseViewActivity extends AppCompatActivity {
     LocalDate currentDate = LocalDate.now();
 
     CourseEntity currentCourse;
+    AssessmentEntity currentAssessment;
+    NoteEntity currentNote;
 
     public static int numAssessments;
 
@@ -101,16 +103,6 @@ public class DetailedCourseViewActivity extends AppCompatActivity {
                 mills.setText(Long.toString(dateLong));
                 mEditStartDate.setText(String.format(Instant.ofEpochSecond(dateLong).atZone(ZoneId.systemDefault()).toLocalDate().toString()));
                 mEditEndDate.setText(String.format(Instant.ofEpochSecond(dateLongPlusSixMonths).atZone(ZoneId.systemDefault()).toLocalDate().toString()));
-
-                //Use this spcae below to track the start and end of an course for ALERTS:
-//                startDate = LocalDate.parse(mEditStartDateDynamic.getText());
-//                endDate = LocalDate.parse(mEditEndDateDynamic.getText());
-//                if((startDate.isEqual(currentDate) || startDate.isBefore(currentDate)) && (endDate.isAfter(currentDate) || endDate.isEqual(currentDate))){
-//                    mIsCurrentTerm.setVisibility(View.VISIBLE);
-//                }
-//                else{
-//                    mIsCurrentTerm.setVisibility(View.INVISIBLE);
-//                }
             }
         });
 
@@ -135,6 +127,7 @@ public class DetailedCourseViewActivity extends AppCompatActivity {
         });
 
         mCourseId = getIntent().getIntExtra("courseID", -1);
+//        if (mCourseId == -1) mCourseId = DetailedAssessmentViewActivity.id3;
         mCourseTermID = getIntent().getIntExtra("termID", -1);
         courseName = getIntent().getStringExtra("courseName");
         startDate = getIntent().getStringExtra("courseStartDate");
@@ -149,10 +142,16 @@ public class DetailedCourseViewActivity extends AppCompatActivity {
 
         courseScheduleRepository = new CouseScheduleRepository(getApplication());
         List<CourseEntity> allCourses = courseScheduleRepository.getAllCourses();
+        List<AssessmentEntity> allAssessments = courseScheduleRepository.getAllAssessments();
+        List<NoteEntity> allNotes = courseScheduleRepository.getAllNotes();
 
-        for (CourseEntity p:allCourses) {
+        for (CourseEntity p:allCourses)
             if (p.getCourseID() == mCourseId) currentCourse = p;
-        }
+        for (AssessmentEntity a:allAssessments)
+            if (a.getAssessmentCourseID() == mCourseId) currentAssessment = a;
+        for (NoteEntity n:allNotes)
+            if (n.getNoteCourseID() == mCourseId) currentNote = n;
+
         mEditName = findViewById(R.id.courseTitle);
         mEditStartDate = findViewById(R.id.startDateDynamicCourse);
         mEditEndDate = findViewById(R.id.endDateDynamicCourse);
@@ -161,6 +160,16 @@ public class DetailedCourseViewActivity extends AppCompatActivity {
         mEditMentorPhone = findViewById(R.id.mentorPhone);
         mEditMentorEmail = findViewById(R.id.mentorEmail);
         mCourseTermIDHidden = findViewById(R.id.courseTermIDHidden);
+
+//        if (currentCourse != null) {
+//            courseName = currentCourse.getCourseName();
+//            startDate = currentCourse.getStartDate().toString();
+//            endDate = currentCourse.getEndDate().toString();
+//            courseStatus = currentCourse.getCourseStatus();
+//            mentor = currentCourse.getCourseMentor();
+//            mentorPhone = currentCourse.getCourseMentorPhone();
+//            mentorEmail = currentCourse.getCourseMentorEmail();
+//        }
 
         if(mCourseId != -1) {
             mEditName.setText(courseName);
@@ -172,7 +181,6 @@ public class DetailedCourseViewActivity extends AppCompatActivity {
             mEditMentorEmail.setText(mentorEmail);
             mCourseTermIDHidden.setText(Integer.toString(mCourseTermID));
         }
-
 
         courseScheduleRepository = new CouseScheduleRepository(getApplication());
         courseScheduleRepository.getAllAssessments();// this is really just to set up the database if there isn't one on your device yet-otherwise synch errors later
@@ -204,25 +212,31 @@ public class DetailedCourseViewActivity extends AppCompatActivity {
                 addCourseFromScreen();
                 Toast.makeText(getApplicationContext(), "Course saved", Toast.LENGTH_LONG).show();
                 return true;
-            case R.id.DeleteCourse:
-//                if (numAssessments == 0)
-                courseScheduleRepository.delete(currentCourse);
+            case R.id.DeleteCourse://Deletes the course and all of its assessments and its note
+                courseScheduleRepository = new CouseScheduleRepository(getApplication());
+                List<CourseEntity> allCourses = courseScheduleRepository.getAllCourses();
+                List<AssessmentEntity> allAssessments = courseScheduleRepository.getAllAssessments();
+                List<NoteEntity> allNotes = courseScheduleRepository.getAllNotes();
+                if (allCourses.size() != 0)
+                    courseScheduleRepository.delete(currentCourse);
+                if (allAssessments.size() != 0)
+                    courseScheduleRepository.delete(currentAssessment);
+                if (allNotes.size() != 0)
+                    courseScheduleRepository.delete(currentNote);
                 Toast.makeText(getApplicationContext(), "Course deleted", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(DetailedCourseViewActivity.this, CourseActivity.class);
                 startActivity(intent);
-//                else {
-//                    Toast.makeText(getApplicationContext(), "Can't delete a Course with Assessments", Toast.LENGTH_LONG).show();// make another toast
-//                }
+                return true;
             case R.id.CourseNote:
                 goToNote();
                 return true;
             case R.id.CourseStartNotification:
                 Intent intent2=new Intent(DetailedCourseViewActivity.this, MyReceiver.class);
-                intent2.putExtra("key","This is a short message");
-                PendingIntent sender= PendingIntent.getBroadcast(DetailedCourseViewActivity.this,++numAlert3,intent2,0);
+                intent2.putExtra("key", "Your course: " + mEditName.getText().toString() + " starts today. Contact your course instructor: " + mEditMentor.getText().toString() + " via email at: " + mEditMentorEmail.getText().toString() + " with any questions about getting started.");
+                PendingIntent sender= PendingIntent.getBroadcast(DetailedCourseViewActivity.this,++numAlert,intent2,0);
                 AlarmManager alarmManager=(AlarmManager)getSystemService(Context.ALARM_SERVICE);
                 String dateFromScreen=mEditStartDate.getText().toString();
-                String myFormat = "MM/dd/yy"; //In which you need put here
+                String myFormat = "yyyy-MM-dd"; //In which you need put here
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
                 Date myDate=null;
                 try {
@@ -233,13 +247,13 @@ public class DetailedCourseViewActivity extends AppCompatActivity {
                 dateStart=myDate.getTime();
                 alarmManager.set(AlarmManager.RTC_WAKEUP, dateStart, sender);
                 return true;
-            case R.id.AssessmentEndNotification:
+            case R.id.CourseEndNotification:
                 Intent intent3=new Intent(DetailedCourseViewActivity.this, MyReceiver.class);
-                intent3.putExtra("key","This is a short message");
-                PendingIntent sender2= PendingIntent.getBroadcast(DetailedCourseViewActivity.this,++numAlert4,intent3,0);
+                intent3.putExtra("key","Your course: " + mEditName.getText().toString() + " ends today. Contact your course instructor: " + mEditMentor.getText().toString() + "via email at: " + mEditMentorEmail.getText().toString() + "with any questions about finishing this course.");
+                PendingIntent sender2= PendingIntent.getBroadcast(DetailedCourseViewActivity.this,++numAlert,intent3,0);
                 AlarmManager alarmManager2=(AlarmManager)getSystemService(Context.ALARM_SERVICE);
                 String dateFromScreen2=mEditEndDate.getText().toString();
-                String myFormat2 = "MM/dd/yy"; //In which you need put here
+                String myFormat2 = "yyyy-MM-dd"; //In which you need put here
                 SimpleDateFormat sdf2 = new SimpleDateFormat(myFormat2, Locale.US);
                 Date myDate2=null;
                 try {
@@ -288,7 +302,7 @@ public class DetailedCourseViewActivity extends AppCompatActivity {
         }
 
         Intent intent = new Intent(DetailedCourseViewActivity.this, CourseActivity.class);
-        intent.putExtra("termID", mCourseTermID);
+//        intent.putExtra("termID", mCourseTermID);
         startActivity(intent);
 //        this.finish();
     }
