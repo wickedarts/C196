@@ -103,10 +103,6 @@ public class DetailedNoteViewActivity extends AppCompatActivity {
             n = new NoteEntity(mNoteId, mCourseId, mNoteText.getText().toString());
         }
         couseScheduleRepository.insert(n);
-
-//        Intent intent = new Intent(DetailedNoteViewActivity.this, DetailedCourseViewActivity.class);
-//        intent.putExtra("courseID", mCourseId);
-//        startActivity(intent);
         this.finish();
     }
 }

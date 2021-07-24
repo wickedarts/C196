@@ -85,16 +85,6 @@ public class DetailedAssessmentViewActivity extends AppCompatActivity {
                 mills.setText(Long.toString(dateLong));
                 mEditStartDateDynamic.setText(String.format(Instant.ofEpochSecond(dateLong).atZone(ZoneId.systemDefault()).toLocalDate().toString()));
                 mEditEndDateDynamic.setText(String.format(Instant.ofEpochSecond(dateLongPlus24Hours).atZone(ZoneId.systemDefault()).toLocalDate().toString()));
-
-                //Use this spcae below to track the start and end of an assessment for ALERTS:
-//                startDate = LocalDate.parse(mEditStartDateDynamic.getText());
-//                endDate = LocalDate.parse(mEditEndDateDynamic.getText());
-//                if((startDate.isEqual(currentDate) || startDate.isBefore(currentDate)) && (endDate.isAfter(currentDate) || endDate.isEqual(currentDate))){
-//                    mIsCurrentTerm.setVisibility(View.VISIBLE);
-//                }
-//                else{
-//                    mIsCurrentTerm.setVisibility(View.INVISIBLE);
-//                }
             }
         });
 
@@ -229,10 +219,6 @@ public class DetailedAssessmentViewActivity extends AppCompatActivity {
             a = new AssessmentEntity(mAssessmentId, mCourseId, mEditAssessmentName.getText().toString(), LocalDate.parse(mEditStartDateDynamic.getText().toString()), LocalDate.parse(mEditEndDateDynamic.getText().toString()), mEditAssessmentType.getSelectedItem().toString(), assessmentSelectionPosition, mEditAssessmentDescription.getText().toString());
             courseScheduleRepository.update(a);
         }
-
-//        Intent intent = new Intent(DetailedAssessmentViewActivity.this, DetailedCourseViewActivity.class);
-//        intent.putExtra("courseID", mCourseId);
-//        startActivity(intent);
         this.finish();
     }
 }

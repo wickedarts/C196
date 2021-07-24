@@ -142,15 +142,9 @@ public class DetailedCourseViewActivity extends AppCompatActivity {
 
         courseScheduleRepository = new CouseScheduleRepository(getApplication());
         List<CourseEntity> allCourses = courseScheduleRepository.getAllCourses();
-        List<AssessmentEntity> allAssessments = courseScheduleRepository.getAllAssessments();
-        List<NoteEntity> allNotes = courseScheduleRepository.getAllNotes();
 
         for (CourseEntity p:allCourses)
             if (p.getCourseID() == mCourseId) currentCourse = p;
-        for (AssessmentEntity a:allAssessments)
-            if (a.getAssessmentCourseID() == mCourseId) currentAssessment = a;
-        for (NoteEntity n:allNotes)
-            if (n.getNoteCourseID() == mCourseId) currentNote = n;
 
         mEditName = findViewById(R.id.courseTitle);
         mEditStartDate = findViewById(R.id.startDateDynamicCourse);
@@ -160,16 +154,6 @@ public class DetailedCourseViewActivity extends AppCompatActivity {
         mEditMentorPhone = findViewById(R.id.mentorPhone);
         mEditMentorEmail = findViewById(R.id.mentorEmail);
         mCourseTermIDHidden = findViewById(R.id.courseTermIDHidden);
-
-//        if (currentCourse != null) {
-//            courseName = currentCourse.getCourseName();
-//            startDate = currentCourse.getStartDate().toString();
-//            endDate = currentCourse.getEndDate().toString();
-//            courseStatus = currentCourse.getCourseStatus();
-//            mentor = currentCourse.getCourseMentor();
-//            mentorPhone = currentCourse.getCourseMentorPhone();
-//            mentorEmail = currentCourse.getCourseMentorEmail();
-//        }
 
         if(mCourseId != -1) {
             mEditName.setText(courseName);
@@ -214,18 +198,14 @@ public class DetailedCourseViewActivity extends AppCompatActivity {
                 return true;
             case R.id.DeleteCourse://Deletes the course and all of its assessments and its note
                 courseScheduleRepository = new CouseScheduleRepository(getApplication());
-                List<CourseEntity> allCourses = courseScheduleRepository.getAllCourses();
-                List<AssessmentEntity> allAssessments = courseScheduleRepository.getAllAssessments();
-                List<NoteEntity> allNotes = courseScheduleRepository.getAllNotes();
-                if (allCourses.size() != 0)
-                    courseScheduleRepository.delete(currentCourse);
-                if (allAssessments.size() != 0)
-                    courseScheduleRepository.delete(currentAssessment);
-                if (allNotes.size() != 0)
-                    courseScheduleRepository.delete(currentNote);
-                Toast.makeText(getApplicationContext(), "Course deleted", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(DetailedCourseViewActivity.this, CourseActivity.class);
-                startActivity(intent);
+                courseScheduleRepository.delete(currentCourse);
+                for(AssessmentEntity a:courseScheduleRepository.getAllAssessments())
+                    if(a.getAssessmentCourseID() == mCourseId)
+                        courseScheduleRepository.delete(a);
+                for(NoteEntity n:courseScheduleRepository.getAllNotes())
+                    if(n.getNoteCourseID() == mCourseId)
+                        courseScheduleRepository.delete(n);
+                this.finish();
                 return true;
             case R.id.CourseNote:
                 goToNote();

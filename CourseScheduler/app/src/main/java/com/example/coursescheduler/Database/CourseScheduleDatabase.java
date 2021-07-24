@@ -78,23 +78,6 @@ public abstract class CourseScheduleDatabase extends RoomDatabase {
             CourseDAO mCourseDao = INSTANCE.courseDAO();
             AssessmentDAO mAssessmentDao = INSTANCE.assessmentDAO();
             NoteDAO mNoteDao = INSTANCE.noteDAO();
-
-            //start the app with a clean database every time.
-            //Not needed if you only populate on creation.
-
-
-//            AssessmentEntity assessment = new AssessmentEntity(1, 1, "Test Assessment 1", LocalDate.parse("2021-07-01"), LocalDate.parse("2021-07-01"));
-//            mAssessmentDao.insert(assessment);
-////                                        (int courseID, String courseName, Date startDate, Date eneDate, String courseMentor, String courseMentorPhone, String courseMentorEmail, String courseStatus)
-//            CourseEntity course=new CourseEntity(1, 1,"Test Course 1", LocalDate.parse("2021-01-01"), LocalDate.parse("2021-01-01"), "Dr Dude", "3035648198", "dude@gmail.com", "NOT STARTED");
-//            mCourseDao.insert(course);
-//
-////                                          (int termID, String termName, Date startDate, Date endDate, boolean currentTerm)
-//            TermEntity term= new TermEntity(1,"Test Term 1", LocalDate.parse("2021-05-01"), LocalDate.parse("2021-05-31"), false);
-//            mTermDao.insert(term);
-//
-//            term = new TermEntity(2,"Test Term 2", LocalDate.parse("2021-06-01"), LocalDate.parse("2021-06-30"), false);
-//            mTermDao.insert(term);
             });
         };
 

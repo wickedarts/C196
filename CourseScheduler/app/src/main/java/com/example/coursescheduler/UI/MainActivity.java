@@ -42,22 +42,6 @@ public class MainActivity extends AppCompatActivity {
                 this.finish();
                 return true;
             case R.id.ClearDatabase:
-//                CourseScheduleDatabase.getDatabase();
-//
-//                public abstract TermDAO termDAO();
-//                public abstract CourseDAO courseDAO();
-//                public abstract AssessmentDAO assessmentDAO();
-//                public abstract NoteDAO noteDAO();
-//
-//                TermDAO mTermDao = INSTANCE.termDAO();
-//                CourseDAO mCourseDao = INSTANCE.courseDAO();
-//                AssessmentDAO mAssessmentDao = INSTANCE.assessmentDAO();
-//                NoteDAO mNoteDao = INSTANCE.noteDAO();
-//
-//                mTermDao.deleteAllTerms();
-//                mCourseDao.deleteAllCourses();
-//                mAssessmentDao.deleteAllAssessments();
-//                mNoteDao.deleteAllNotes();
 
         }
         return super.onOptionsItemSelected(item);

@@ -10,14 +10,12 @@
 
     <CalendarView
         android:id="@+id/calendarViewAssessment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@android:color/darker_gray"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/assessmentDescription"
+        tools:layout_editor_absoluteX="25dp"
         tools:visibility="visible" />
 
     <EditText
@@ -27,8 +25,6 @@
         android:text="YEAR-MM-DD"
         android:textSize="18sp"
         android:textStyle="normal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.203"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/startDateAssessmentText" />
 
@@ -36,14 +32,11 @@
         android:id="@+id/endDateDynamicAssessment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
         android:text="YEAR-MM-DD"
         android:textSize="18sp"
         android:textStyle="normal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.203"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startDateAssessmentText" />
+        app:layout_constraintTop_toBottomOf="@+id/startDateDynamicAssessment" />
 
     <TextView
         android:id="@+id/startDateAssessmentText"
@@ -52,8 +45,6 @@
         android:text="@string/start_end_date"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.187"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/assessmentTitle" />
 
@@ -61,12 +52,10 @@
         android:id="@+id/startTimeAssessmentText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="32dp"
         android:text="@string/assessment_type"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.455"
         app:layout_constraintStart_toEndOf="@+id/startDateAssessmentText"
         app:layout_constraintTop_toBottomOf="@+id/assessmentTitle" />
 
@@ -74,47 +63,40 @@
         android:id="@+id/dateInMillsAssessmentHIDE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="TextViewHIDDEN"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/calendarViewAssessment"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/spinnerAssessment"
+        app:layout_constraintStart_toEndOf="@+id/startTimeAssessmentText"
+        app:layout_constraintTop_toBottomOf="@+id/assessmentTitle" />
 
     <EditText
         android:id="@+id/assessmentTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginEnd="60dp"
         android:text="CLP1: Mobile Application"
         android:textSize="32sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.44"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/assessmentDescription"
-        android:layout_width="354dp"
-        android:layout_height="225dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="323dp"
+        android:layout_height="152dp"
         android:inputType="textMultiLine"
         android:text="This course introduces students to programming for mobile devices using a software development kit (SDK). Students with previous knowledge of programming will learn how to install and utilize a SDK, build a basic mobile application, build a mobile application using a graphical user interface (GUI), adapt applications to different mobile devices, save data, execute and debug mobile applications using emulators, and deploy a mobile application."
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/dateInMillsAssessmentHIDE"
+        app:layout_constraintBottom_toTopOf="@+id/calendarViewAssessment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/endDateDynamicAssessment" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
         android:id="@+id/spinnerAssessment"
         android:layout_width="168dp"
         android:layout_height="36dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.843"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/startDateAssessmentText"
         app:layout_constraintTop_toBottomOf="@+id/startTimeAssessmentText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
