@@ -194,7 +194,6 @@ public class DetailedCourseViewActivity extends AppCompatActivity {
                 return true;
             case R.id.SaveCourse:
                 addCourseFromScreen();
-                Toast.makeText(getApplicationContext(), "Course saved", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.DeleteCourse://Deletes the course and all of its assessments and its note
                 courseScheduleRepository = new CouseScheduleRepository(getApplication());
@@ -265,26 +264,65 @@ public class DetailedCourseViewActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void addCourseFromScreen() {
-        CourseEntity c;
-        List<CourseEntity> allCourses = courseScheduleRepository.getAllCourses();
-        if(mCourseId == -1) {
-            if(allCourses.isEmpty())
-                mCourseId = 0;
+    public static class Example{
+        public static boolean validateJavaDate(String strDate)
+        {
+            /* Check if date is 'null' */
+            if (strDate.trim().equals(""))
+            {
+                return false;
+            }
+            /* Date is not 'null' */
             else
-                mCourseId = allCourses.get(allCourses.size()-1).getCourseID();
-            c = new CourseEntity(++mCourseId, mCourseTermID, mEditName.getText().toString(), LocalDate.parse(mEditStartDate.getText().toString()), LocalDate.parse(mEditEndDate.getText().toString()), mEditMentor.getText().toString(), mEditMentorPhone.getText().toString(), mEditMentorEmail.getText().toString(), mEditStatus.getSelectedItem().toString(), courseStatusSelectionPosition);
-            courseScheduleRepository.insert(c);
+            {
+                /*
+                 * Set preferred date format,
+                 * For example MM-dd-yyyy, MM.dd.yyyy,dd.MM.yyyy etc.*/
+                SimpleDateFormat sdfrmt = new SimpleDateFormat("yyyy-MM-dd");
+                sdfrmt.setLenient(false);
+                /* Create Date object
+                 * parse the string into date
+                 */
+                try
+                {
+                    Date javaDate = sdfrmt.parse(strDate);
+                    System.out.println(strDate+" is valid date format");
+                }
+                /* Date format is invalid */
+                catch (ParseException e)
+                {
+                    System.out.println(strDate+" is Invalid Date format");
+                    return false;
+                }
+                /* Return true if date format is valid */
+                return true;
+            }
         }
-        else {
-            c = new CourseEntity(mCourseId, mCourseTermID, mEditName.getText().toString(), LocalDate.parse(mEditStartDate.getText().toString()), LocalDate.parse(mEditEndDate.getText().toString()), mEditMentor.getText().toString(), mEditMentorPhone.getText().toString(), mEditMentorEmail.getText().toString(), mEditStatus.getSelectedItem().toString(), courseStatusSelectionPosition);
-            courseScheduleRepository.update(c);
-        }
+    }
 
-        Intent intent = new Intent(DetailedCourseViewActivity.this, CourseActivity.class);
-//        intent.putExtra("termID", mCourseTermID);
-        startActivity(intent);
-//        this.finish();
+    public void addCourseFromScreen() {
+        if(Example.validateJavaDate(mEditStartDate.getText().toString()) == false || Example.validateJavaDate(mEditEndDate.getText().toString()) == false)
+            Toast.makeText(getApplicationContext(), "Set Valid Dates (YYYY-MM-DD)", Toast.LENGTH_SHORT).show();
+        else {
+            CourseEntity c;
+            List<CourseEntity> allCourses = courseScheduleRepository.getAllCourses();
+            if (mCourseId == -1) {
+                if (allCourses.isEmpty())
+                    mCourseId = 0;
+                else
+                    mCourseId = allCourses.get(allCourses.size() - 1).getCourseID();
+                c = new CourseEntity(++mCourseId, mCourseTermID, mEditName.getText().toString(), LocalDate.parse(mEditStartDate.getText().toString()), LocalDate.parse(mEditEndDate.getText().toString()), mEditMentor.getText().toString(), mEditMentorPhone.getText().toString(), mEditMentorEmail.getText().toString(), mEditStatus.getSelectedItem().toString(), courseStatusSelectionPosition);
+                courseScheduleRepository.insert(c);
+            } else {
+                c = new CourseEntity(mCourseId, mCourseTermID, mEditName.getText().toString(), LocalDate.parse(mEditStartDate.getText().toString()), LocalDate.parse(mEditEndDate.getText().toString()), mEditMentor.getText().toString(), mEditMentorPhone.getText().toString(), mEditMentorEmail.getText().toString(), mEditStatus.getSelectedItem().toString(), courseStatusSelectionPosition);
+                courseScheduleRepository.update(c);
+            }
+
+            Toast.makeText(getApplicationContext(), "Course saved", Toast.LENGTH_LONG).show();
+
+            Intent intent = new Intent(DetailedCourseViewActivity.this, CourseActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void refreshList(){

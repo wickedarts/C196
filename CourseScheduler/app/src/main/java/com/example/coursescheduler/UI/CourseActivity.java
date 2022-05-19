@@ -29,6 +29,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.text.ParseException;
+
 public class CourseActivity extends AppCompatActivity {
     private CouseScheduleRepository courseScheduleRepository;
 
@@ -148,7 +152,6 @@ public class CourseActivity extends AppCompatActivity {
                 return true;
             case R.id.SaveTerm:
                 addTermFromScreen();
-                Toast.makeText(getApplicationContext(), "Term saved", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.DeleteTerm:
                 if (numCourses == 0) {
@@ -174,33 +177,72 @@ public class CourseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void addTermFromScreen() {
-        TermEntity p;
-        List<TermEntity> allTerms = courseScheduleRepository.getAllTerms();
-
-        if((startDate.isEqual(currentDate) || startDate.isBefore(currentDate)) && (endDate.isAfter(currentDate) || endDate.isEqual(currentDate))){
-            isCurrentTerm = 1;
-        }
-        else{
-            isCurrentTerm = 0;
-        }
-
-        if(mTermId == -1) {
-            if (allTerms.isEmpty())
-                mTermId = 0;
+    public static class Example{
+        public static boolean validateJavaDate(String strDate)
+        {
+            /* Check if date is 'null' */
+            if (strDate.trim().equals(""))
+            {
+                return false;
+            }
+            /* Date is not 'null' */
             else
-                mTermId = allTerms.get(allTerms.size()-1).getTermID();
-            p = new TermEntity(++mTermId, mEditTermTitle.getText().toString(), LocalDate.parse(mEditStartDateDynamic.getText()), LocalDate.parse(mEditEndDateDynamic.getText()), isCurrentTerm);
-            courseScheduleRepository.insert(p);
+            {
+                /*
+                 * Set preferred date format,
+                 * For example MM-dd-yyyy, MM.dd.yyyy,dd.MM.yyyy etc.*/
+                SimpleDateFormat sdfrmt = new SimpleDateFormat("yyyy-MM-dd");
+                sdfrmt.setLenient(false);
+                /* Create Date object
+                 * parse the string into date
+                 */
+                try
+                {
+                    Date javaDate = sdfrmt.parse(strDate);
+                    System.out.println(strDate+" is valid date format");
+                }
+                /* Date format is invalid */
+                catch (ParseException e)
+                {
+                    System.out.println(strDate+" is Invalid Date format");
+                    return false;
+                }
+                /* Return true if date format is valid */
+                return true;
+            }
         }
-        else {
-            p = new TermEntity(mTermId, mEditTermTitle.getText().toString(), LocalDate.parse(mEditStartDateDynamic.getText()), LocalDate.parse(mEditEndDateDynamic.getText()), isCurrentTerm);
-            courseScheduleRepository.update(p);
-        }
+    }
 
-        Intent intent = new Intent(CourseActivity.this, ListOfTermsActivity.class);
-        startActivity(intent);
-//        this.finish();
+    public void addTermFromScreen() {
+        if(Example.validateJavaDate(mEditStartDateDynamic.getText().toString()) == false || Example.validateJavaDate(mEditEndDateDynamic.getText().toString()) == false)
+            Toast.makeText(getApplicationContext(), "Set Valid Dates (YYYY-MM-DD)", Toast.LENGTH_SHORT).show();
+        else {
+            TermEntity p;
+            List<TermEntity> allTerms = courseScheduleRepository.getAllTerms();
+
+            if ((startDate.isEqual(currentDate) || startDate.isBefore(currentDate)) && (endDate.isAfter(currentDate) || endDate.isEqual(currentDate))) {
+                isCurrentTerm = 1;
+            } else {
+                isCurrentTerm = 0;
+            }
+
+            if (mTermId == -1) {
+                if (allTerms.isEmpty())
+                    mTermId = 0;
+                else
+                    mTermId = allTerms.get(allTerms.size() - 1).getTermID();
+                p = new TermEntity(++mTermId, mEditTermTitle.getText().toString(), LocalDate.parse(mEditStartDateDynamic.getText()), LocalDate.parse(mEditEndDateDynamic.getText()), isCurrentTerm);
+                courseScheduleRepository.insert(p);
+            } else {
+                p = new TermEntity(mTermId, mEditTermTitle.getText().toString(), LocalDate.parse(mEditStartDateDynamic.getText()), LocalDate.parse(mEditEndDateDynamic.getText()), isCurrentTerm);
+                courseScheduleRepository.update(p);
+            }
+
+            Toast.makeText(getApplicationContext(), "Term saved", Toast.LENGTH_LONG).show();
+
+            Intent intent = new Intent(CourseActivity.this, ListOfTermsActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void refreshList(){

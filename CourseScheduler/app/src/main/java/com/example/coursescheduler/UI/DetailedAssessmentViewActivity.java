@@ -156,7 +156,6 @@ public class DetailedAssessmentViewActivity extends AppCompatActivity {
                 return true;
             case R.id.SaveAssessment:
                 addAssessmentFromScreen();
-                Toast.makeText(getApplicationContext(), "Assessment saved", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.DeleteAssessment:
                 courseScheduleRepository.delete(currentAssessment);
@@ -202,23 +201,65 @@ public class DetailedAssessmentViewActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void addAssessmentFromScreen() {
-        AssessmentEntity a;
-
-        List<AssessmentEntity> allAssessments = courseScheduleRepository.getAllAssessments();
-
-        if(mAssessmentId == -1) {
-            if(allAssessments.isEmpty())
-                mAssessmentId = 0;
+    public static class Example{
+        public static boolean validateJavaDate(String strDate)
+        {
+            /* Check if date is 'null' */
+            if (strDate.trim().equals(""))
+            {
+                return false;
+            }
+            /* Date is not 'null' */
             else
-                mAssessmentId = allAssessments.get(allAssessments.size()-1).getAssessmentID();
-            a = new AssessmentEntity(++mAssessmentId, mCourseId, mEditAssessmentName.getText().toString(), LocalDate.parse(mEditStartDateDynamic.getText().toString()), LocalDate.parse(mEditEndDateDynamic.getText().toString()), mEditAssessmentType.getSelectedItem().toString(), assessmentSelectionPosition, mEditAssessmentDescription.getText().toString());
-            courseScheduleRepository.insert(a);
+            {
+                /*
+                 * Set preferred date format,
+                 * For example MM-dd-yyyy, MM.dd.yyyy,dd.MM.yyyy etc.*/
+                SimpleDateFormat sdfrmt = new SimpleDateFormat("yyyy-MM-dd");
+                sdfrmt.setLenient(false);
+                /* Create Date object
+                 * parse the string into date
+                 */
+                try
+                {
+                    Date javaDate = sdfrmt.parse(strDate);
+                    System.out.println(strDate+" is valid date format");
+                }
+                /* Date format is invalid */
+                catch (ParseException e)
+                {
+                    System.out.println(strDate+" is Invalid Date format");
+                    return false;
+                }
+                /* Return true if date format is valid */
+                return true;
+            }
         }
+    }
+
+    public void addAssessmentFromScreen() {
+        if (Example.validateJavaDate(mEditStartDateDynamic.getText().toString()) == false || Example.validateJavaDate(mEditEndDateDynamic.getText().toString()) == false)
+            Toast.makeText(getApplicationContext(), "Set Valid Dates (YYYY-MM-DD)", Toast.LENGTH_SHORT).show();
         else {
-            a = new AssessmentEntity(mAssessmentId, mCourseId, mEditAssessmentName.getText().toString(), LocalDate.parse(mEditStartDateDynamic.getText().toString()), LocalDate.parse(mEditEndDateDynamic.getText().toString()), mEditAssessmentType.getSelectedItem().toString(), assessmentSelectionPosition, mEditAssessmentDescription.getText().toString());
-            courseScheduleRepository.update(a);
+            AssessmentEntity a;
+
+            List<AssessmentEntity> allAssessments = courseScheduleRepository.getAllAssessments();
+
+            if (mAssessmentId == -1) {
+                if (allAssessments.isEmpty())
+                    mAssessmentId = 0;
+                else
+                    mAssessmentId = allAssessments.get(allAssessments.size() - 1).getAssessmentID();
+                a = new AssessmentEntity(++mAssessmentId, mCourseId, mEditAssessmentName.getText().toString(), LocalDate.parse(mEditStartDateDynamic.getText().toString()), LocalDate.parse(mEditEndDateDynamic.getText().toString()), mEditAssessmentType.getSelectedItem().toString(), assessmentSelectionPosition, mEditAssessmentDescription.getText().toString());
+                courseScheduleRepository.insert(a);
+            } else {
+                a = new AssessmentEntity(mAssessmentId, mCourseId, mEditAssessmentName.getText().toString(), LocalDate.parse(mEditStartDateDynamic.getText().toString()), LocalDate.parse(mEditEndDateDynamic.getText().toString()), mEditAssessmentType.getSelectedItem().toString(), assessmentSelectionPosition, mEditAssessmentDescription.getText().toString());
+                courseScheduleRepository.update(a);
+            }
+
+            Toast.makeText(getApplicationContext(), "Assessment saved", Toast.LENGTH_LONG).show();
+
+            this.finish();
         }
-        this.finish();
     }
 }
